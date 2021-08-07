@@ -4,7 +4,8 @@
   "description": "Aplicacion web para el alquiler de autos",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
   },
   "author": "Juan María Fernández",
   "license": "ISC",
