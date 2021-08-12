@@ -1,0 +1,101 @@
+{% extends "view/admin/layout/base.html" %}
+{% block body %}
+  <section class="section">
+    <div class="container">
+      <h1 class="is-size-1-desktop is-size-3-mobile is-size-2-tablet has-text-centered pb-5">
+        All cars
+      </h1>
+      <div class="columns is-vcentered is-multiline">
+    
+        {% for car in data.cars %}
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="card">
+            <div class="card-image">
+              <figure class="image is-3by2">
+                <img src="{{car.crestUrl}}" alt="Placeholder image">
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="box">
+                <div class="media">
+                  <div class="media-left">
+                    <figure class="image is-48x48">
+                      <img src="{{car.crestUrl}}" alt="Placeholder image">
+                    </figure>
+                  </div>
+                  <div class="media-content">
+                    <p class="title is-4">{{car.brand}}</p>
+                    <p class="subtitle is-6">{{car.carModel}}</p>
+                  </div>
+                </div>
+              </div>
+          
+              <div class="box">
+                <span class="icon-text">
+                  <span class="icon ">
+                    <i class="fas fa-info-circle"></i>
+                    <span><p class="pl-2">Info</p></span>
+                  </span>
+                <div class="content">
+                  <ul>
+                    <li>
+                      <span class="has-text-weight-medium">Year: 
+                        <span class="is-family-code">
+                          {{car.year}}
+                        </span>
+                      </span>
+                    </li>
+                    <li>
+                      <span class="has-text-weight-medium">Kilometres:
+                         <span class="is-family-code">
+                           {{car.kilometres}}
+                         </span>
+                        </span>
+                    </li>
+                    <li>
+                      <span class="has-text-weight-medium">Color:
+                        <span class="is-family-code">
+                          {{car.color}}
+                        </span>
+                    </span>
+                    </li>
+                    <li>
+                      <span class="has-text-weight-medium">Air Conditioner:</span>
+                    </li>
+                    <li>
+                      <span class="has-text-weight-medium">Gearbox:</span>
+                    </li>
+                  </ul>
+                 </div>
+              </div>
+              <div class="box">
+                <footer class="card-footer">
+                  <a href="#"  class="card-footer-item has-text-success action-edit" data-id="{{car.id}}" data-brand="{{car.brand}}" data-model="{{car.carModel}}">
+                    Edit  
+                    <span class="icon-text">
+                      <span class="icon">
+                        <i class="fas fa-edit"></i>
+                      </span>
+                  </a>
+                  <a href="#" class="card-footer-item has-text-danger action-delete" data-id = "{{car.id}}" data-brand="{{car.brand}}" data-model="{{car.carModel}}">
+                    Delete
+                    <span class="icon-text">
+                      <span class="icon">
+                        <i class="fas fa-trash"></i>
+                      </span>
+                  </a>
+                </footer>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        
+      </div>
+      
+    </div>
+  
+
+  </section>
+    <script src="/js/allcars.js"></script>
+{% endblock %}

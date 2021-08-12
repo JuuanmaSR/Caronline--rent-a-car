@@ -1,0 +1,61 @@
+<nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://bulma.io">
+      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+    </a>
+
+    <a role="button" class="navbar-burger" id="burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  
+  <div id="nav-links" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item  has-text-grey is-size-5" href="/admin/">
+        Home
+      </a>
+    
+      <div class="navbar-item has-dropdown  is-hoverable">
+        <a class="navbar-link has-text-grey is-size-5">
+          Rent panel
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item">
+            All cars
+          </a>
+          <hr class="navbar-divider">
+          <a class="navbar-item">
+            Non-rented cars
+          </a>
+          <a class="navbar-item">
+            Rented cars
+          </a>
+        </div>
+      </div>
+      
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link  has-text-grey is-size-5">
+          Cars
+        </a>
+
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/admin/allcars/">
+            All cars
+          </a>
+          <a class="navbar-item" href="/admin/addacar/">
+            Add a car
+          </a>
+          <hr class="navbar-divider">
+          <a class="navbar-item">
+            Non-rented cars
+          </a>
+          <a class="navbar-item">
+            Rented cars
+          </a>
+      </div>
+    </div>
+  </div>
+</nav>
+<script src="/js/navbar.js"></script>
