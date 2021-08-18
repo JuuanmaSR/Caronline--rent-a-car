@@ -5,6 +5,18 @@
       <h1 class="is-size-1-desktop is-size-3-mobile is-size-2-tablet has-text-centered pb-5">
         All cars
       </h1>
+      {% for message in messages %}
+      <div class="notification is-success">
+        <button class="delete"></button>
+        {{message}}
+      </div>
+      {% endfor %}
+      {% for error in errors %}
+      <div class="notification is-danger">
+        <button class="delete"></button>
+        {{error}}
+      </div>
+      {% endfor %}
       <div class="columns is-vcentered is-multiline">
     
         {% for car in data.cars %}
@@ -32,12 +44,19 @@
           
               <div class="box">
                 <span class="icon-text">
-                  <span class="icon ">
+                  <span class="icon has-text-info">
                     <i class="fas fa-info-circle"></i>
                     <span><p class="pl-2">Info</p></span>
                   </span>
                 <div class="content">
                   <ul>
+                    <li>
+                      <span class="has-text-weight-medium">ID: 
+                        <span class="is-family-code">
+                          {{car.id}}
+                        </span>
+                      </span>
+                    </li>
                     <li>
                       <span class="has-text-weight-medium">Year: 
                         <span class="is-family-code">
@@ -59,25 +78,42 @@
                         </span>
                     </span>
                     </li>
-                    <li>
-                      <span class="has-text-weight-medium">Air Conditioner:</span>
+                    <li class="is-align-content-centerr">
+                      <span class="has-text-weight-medium ">
+                        Air Conditioner:
+                         {% if car.airConditioner %}
+                         <span class="icon has-text-success">
+                          <i class="fas fa-check"></i>
+                        </span>
+                        {% else %}
+                        <span class="icon has-text-danger">
+                          <i class="fas fa-times"></i>
+                        </span>
+                        {% endif %}
+                        
+                      </span>
                     </li>
                     <li>
-                      <span class="has-text-weight-medium">Gearbox:</span>
+                      <span class="has-text-weight-medium">
+                        Gearbox:
+                        <span class="is-family-code">
+                          {{car.gearBox}}
+                        </span>
+                      </span>
                     </li>
                   </ul>
                  </div>
               </div>
               <div class="box">
                 <footer class="card-footer">
-                  <a href="#"  class="card-footer-item has-text-success action-edit" data-id="{{car.id}}" data-brand="{{car.brand}}" data-model="{{car.carModel}}">
+                  <a href="/admin/cars/editacar/{{car.id}}"  class="card-footer-item has-text-success action-edit" data-id="{{car.id}}" data-brand="{{car.brand}}" data-model="{{car.carModel}}">
                     Edit  
                     <span class="icon-text">
                       <span class="icon">
                         <i class="fas fa-edit"></i>
                       </span>
                   </a>
-                  <a href="#" class="card-footer-item has-text-danger action-delete" data-id = "{{car.id}}" data-brand="{{car.brand}}" data-model="{{car.carModel}}">
+                  <a href="/admin/cars/deleteacar/{{car.id}}" class="card-footer-item has-text-danger action-delete" data-id = "{{car.id}}" data-brand="{{car.brand}}" data-model="{{car.carModel}}">
                     Delete
                     <span class="icon-text">
                       <span class="icon">
@@ -97,5 +133,5 @@
   
 
   </section>
-    <script src="/js/allcars.js"></script>
+    <script src="/js/adminViewJs/allcars.js"></script>
 {% endblock %}
