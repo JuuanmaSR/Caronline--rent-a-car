@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 require('dotenv').config();
-const path = require('path');
 const express = require('express');
 const nunjucks = require('nunjucks');
 
@@ -17,6 +16,8 @@ nunjucks.configure('src/module', {
 
 // Middlewares
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
 // Static Files
 app.use(express.static('public'));
 
