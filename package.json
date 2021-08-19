@@ -4,8 +4,9 @@
   "description": "Aplicacion web para el alquiler de autos",
   "main": "index.js",
   "scripts": {
+    "sync:db":"node src/cli/init.db.js",
     "start": "node src/app.js",
-    "dev": "nodemon src/app.js"
+    "dev": "npm run sync:db && nodemon  src/app.js"
   },
   "author": "Juan María Fernández",
   "license": "ISC",
@@ -20,8 +21,10 @@
   },
   "dependencies": {
     "bulma": "^0.9.3",
+    "connect-session-sequelize": "^7.1.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "express-session": "^1.17.2",
     "multer": "^1.4.2",
     "nunjucks": "^3.2.3",
     "rsdi": "^1.0.12",
