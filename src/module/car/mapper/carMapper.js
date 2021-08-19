@@ -13,6 +13,7 @@ function fromDataToEntity({
   color,
   airConditioner,
   gearBox,
+  rentalValuePerDay,
 }) {
   return new Car({
     id: Number(id),
@@ -24,6 +25,7 @@ function fromDataToEntity({
     color,
     airConditioner,
     gearBox,
+    rentalValuePerDay,
   });
 }
 /**

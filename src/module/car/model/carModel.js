@@ -38,6 +38,9 @@ module.exports = class CarModel extends Model {
       gearBox: {
         type: DataTypes.STRING,
       },
+      rentalValuePerDay: {
+        type: DataTypes.INTEGER,
+      },
       createdAt: {
         type: DataTypes.DATE,
         defaultValue: Sequelize.NOW,

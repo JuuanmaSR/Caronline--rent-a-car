@@ -9,6 +9,7 @@ module.exports = class Car {
     color,
     airConditioner,
     gearBox,
+    rentalValuePerDay,
   }) {
     this.id = id;
     this.crestUrl = crestUrl;
@@ -19,5 +20,6 @@ module.exports = class Car {
     this.color = color;
     this.airConditioner = airConditioner;
     this.gearBox = gearBox;
+    this.rentalValuePerDay = rentalValuePerDay;
   }
 };

@@ -75,14 +75,20 @@
           <div class="select">
             <select name="gearBox" form="carform" required>
               {% if car.gearBox == "automatic" %}
-              <option value="manual">Manual</option>
-              <option value="automatic" selected>Automatic</option>
+              <option value="Manual">Manual</option>
+              <option value="Automatic" selected>Automatic</option>
               {% else %}
-              <option value="manual" selected>Manual</option>
-              <option value="automatic">Automatic</option>
+              <option value="Manual" selected>Manual</option>
+              <option value="Automatic">Automatic</option>
               {% endif %}
             </select>
           </div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Rental value per day</label>
+        <div class="control">
+          <input class="input" type="number" placeholder="3989" min="0" name="rentalValuePerDay" value="{{car.rentalValuePerDay}}" required>
         </div>
       </div>
       <div class="field is-grouped is-grouped-left">
