@@ -24,6 +24,20 @@ module.exports = class CarService {
     return this.carRepository.save(car);
   }
 
+  async delete(car) {
+    if (!car || !car.id) {
+      throw new CarIdNotDefinedError();
+    }
+    return this.carRepository.delete(car);
+  }
+
+  async getById(id) {
+    if (id === undefined) {
+      throw new CarIdNotDefinedError();
+    }
+    return this.carRepository.getById(id);
+  }
+
   async getAll() {
     return this.carRepository.getAll();
   }

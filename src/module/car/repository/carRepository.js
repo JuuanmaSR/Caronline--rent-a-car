@@ -28,6 +28,26 @@ module.exports = class CarRepository extends AbstractCarRepository {
     return fromModelToEntity(carModel);
   }
 
+  async delete(car) {
+    if (!car || !car.id) {
+      throw new CarIdNotDefinedError();
+    }
+
+    return Boolean(await this.carModel.destroy({ where: { id: car.id } }));
+  }
+
+  /**
+ *
+ * @param {Number} id
+ */
+  async getById(id) {
+    const carModel = await this.carModel.findOne({ where: { id } });
+    if (!carModel) {
+      throw new CarNotFoundError(`Vehicle ID: ${id} not found`);
+    }
+    return fromModelToEntity(carModel);
+  }
+
   async getAll() {
     const cars = await this.carModel.findAll();
     return cars.map(fromModelToEntity);
