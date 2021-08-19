@@ -1,5 +1,4 @@
 /* eslint-disable class-methods-use-this */
-const { render } = require('nunjucks');
 const { fromDataToEntity } = require('../mapper/carMapper');
 const AbstractCarController = require('./abstractCarController');
 const CarIdNotDefinedError = require('./error/carIdNotDefinedError');
@@ -21,10 +20,26 @@ module.exports = class CarController extends AbstractCarController {
    */
   async getAllCars(req, res) {
     const cars = await this.carService.getAll();
-    // const { errors, messages } = req.session;
-    res.render('view/admin/allcars', {
+    const { errors, messages } = req.session;
+    res.render('car/view/allcars', {
       data: { cars },
+      errors,
+      messages,
     });
+    req.session.errors = [];
+    req.session.messages = [];
+  }
+
+  async carDelete(req, res) {
+    try {
+      const { id } = req.params;
+      const car = await this.carService.getById(id);
+      await this.carService.delete(car);
+      req.session.messages = [` (${car.brand} ${car.carModel}) vehicle with ID (${id}) could be removed sucessfully`];
+    } catch (e) {
+      req.session.errors = ['Vehicle could not be removed', e.message];
+    }
+    res.redirect('/admin/cars/allcars');
   }
 
   async carSave(req, res) {
@@ -34,19 +49,18 @@ module.exports = class CarController extends AbstractCarController {
         const path = `/uploads/${req.file.filename}`;
         car.crestUrl = path;
       }
-      console.log(car);
       const savedCar = await this.carService.save(car);
-      /*
+
       if (car.id) {
-        req.session.message = [`The car with id ${car.id} was updated correctly`];
+        req.session.messages = [`The car with ID (${car.id}) was updated correctly`];
       } else {
-        req.session.message = [`The model car ${savedCar.carModel} of the ${savedCar.brand} with id ${savedCar.id} was created`];
+        req.session.messages = [`The model car (${savedCar.carModel}) of the (${savedCar.brand}) brand with ID (${savedCar.id}) was created`];
       }
-      */
-      res.redirect('/admin');
+
+      res.redirect('/admin/cars/allcars');
     } catch (e) {
       req.session.errors = [e.message, e.stack];
-      res.redirect('/admin');
+      res.redirect('/admin/cars/allcars');
     }
   }
 
@@ -57,11 +71,25 @@ module.exports = class CarController extends AbstractCarController {
    */
   getAddACar(req, res) {
     try {
-      res.render('view/admin/form', {
-        title: 'Add a car',
+      res.render('car/view/form');
+    } catch (e) {
+      req.session.errors = [e.message];
+      res.redirect('/admin');
+    }
+  }
+
+  async getEditACar(req, res) {
+    const { id } = req.params;
+    if (id === undefined) {
+      throw new CarIdNotDefinedError();
+    }
+    const car = await this.carService.getById(id);
+    try {
+      res.render('car/view/form', {
+        data: { car },
       });
-    } catch (error) {
-      req.session.error = [error.message];
+    } catch (e) {
+      req.session.errors = [e.message];
       res.redirect('/admin');
     }
   }
