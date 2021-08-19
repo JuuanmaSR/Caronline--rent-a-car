@@ -1,10 +1,20 @@
 /* eslint-disable no-unused-vars */
 const express = require('express');
+const container = require('../../src/config/dic')();
 
 /**
  * @type {import('../../src/module/car/controller/carController')} carController
  */
+
+const carController = container.get('CarController');
+const upload = container.get('Multer');
 const router = express.Router();
+
+const routeCars = 'cars';
+// Session
+router.use(container.get('Session'));
+
+// Admin routes
 router.get('/', (req, res) => {
   res.render('view/admin/home', {
     username: 'Juan',
