@@ -4,9 +4,11 @@
   "description": "Aplicacion web para el alquiler de autos",
   "main": "index.js",
   "scripts": {
-    "sync:db":"node src/cli/init.db.js",
     "start": "node src/app.js",
-    "dev": "npm run sync:db && nodemon  src/app.js"
+    "sync:db":"node src/cli/init.db.js",
+    "dev": "npm run sync:db && nodemon  src/app.js",
+    "test": "jest --coverage",
+    "test:dev": "jest --watch"
   },
   "author": "Juan María Fernández",
   "license": "ISC",

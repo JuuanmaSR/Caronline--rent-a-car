@@ -26,7 +26,7 @@ module.exports = class CarService {
 
   async delete(car) {
     if (!car || !car.id) {
-      throw new CarIdNotDefinedError();
+      throw new CarNotDefinedError();
     }
     return this.carRepository.delete(car);
   }
