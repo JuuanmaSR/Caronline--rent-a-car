@@ -21,7 +21,7 @@ module.exports = class CarController extends AbstractCarController {
   async getAllCars(req, res) {
     const cars = await this.carService.getAll();
     const { errors, messages } = req.session;
-    res.render('car/view/allcars', {
+    res.render('car/views/allcars', {
       data: { cars },
       errors,
       messages,
@@ -71,7 +71,7 @@ module.exports = class CarController extends AbstractCarController {
    */
   getAddACar(req, res) {
     try {
-      res.render('car/view/form');
+      res.render('car/views/form');
     } catch (e) {
       req.session.errors = [e.message];
       res.redirect('/admin');
@@ -85,7 +85,7 @@ module.exports = class CarController extends AbstractCarController {
     }
     const car = await this.carService.getById(id);
     try {
-      res.render('car/view/form', {
+      res.render('car/views/form', {
         data: { car },
       });
     } catch (e) {

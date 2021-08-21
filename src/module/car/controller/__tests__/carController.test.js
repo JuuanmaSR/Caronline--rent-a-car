@@ -17,7 +17,7 @@ test('getAllCars renderea allcars', async () => {
   await controller.getAllCars({ session: { errors: [], messages: [] } }, { render: renderMock });
 
   expect(renderMock).toHaveBeenCalledTimes(1);
-  expect(renderMock).toHaveBeenCalledWith('car/view/allcars', {
+  expect(renderMock).toHaveBeenCalledWith('car/views/allcars', {
     data: { cars: [] },
     errors: [],
     messages: [],
@@ -28,7 +28,7 @@ test('getAddACar renderea form', async () => {
   const renderMock = jest.fn();
   await controller.getAddACar({ session: { errors: [] } }, { render: renderMock });
   expect(renderMock).toHaveBeenCalledTimes(1);
-  expect(renderMock).toHaveBeenCalledWith('car/view/form');
+  expect(renderMock).toHaveBeenCalledWith('car/views/form');
 });
 
 test('getEditACar renderea form con un id especifico por parametro', async () => {
@@ -39,7 +39,7 @@ test('getEditACar renderea form con un id especifico por parametro', async () =>
     { render: renderMock },
   );
   expect(renderMock).toHaveBeenCalledTimes(1);
-  expect(renderMock).toHaveBeenCalledWith('car/view/form', {
+  expect(renderMock).toHaveBeenCalledWith('car/views/form', {
     data: { car: {} },
   });
 });

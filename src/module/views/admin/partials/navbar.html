@@ -39,10 +39,10 @@
           Customers
         </a>
         <div class="navbar-dropdown">
-          <a class="navbar-item">
+          <a class="navbar-item" href="/admin/users/allusers/">
             All customers
            </a>
-          <a class="navbar-item">
+          <a class="navbar-item" href="/admin/users/addauser/">
            Register a customer
           </a>
         </div>
@@ -64,5 +64,6 @@
     </div>
   </div>
 </nav>
-
+{% block footerScripts %}
 <script src="/js/adminViewJs/navbar.js"></script>
+{% endblock %}

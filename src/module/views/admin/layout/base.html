@@ -11,14 +11,15 @@
 
 </head>
 <body>
-    {% include "view/admin/partials/navbar.html"%}
+    {% include "views/admin/partials/navbar.html"%}
     <div class="container is-fluid is-max-desktop">
       {% block body %}
       {% endblock %}
   
     </div>
     
-    {% include "view/admin/partials/footer.html" %}
-    
+    {% include "views/admin/partials/footer.html" %}
+    {% block footerScripts %}
+    {% endblock %}
 </body>
 </html>
