@@ -12,6 +12,12 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const {
   CarController, CarService, CarRepository, CarModel,
 } = require('../module/car/module');
+const {
+  UserModel,
+  UserRepository,
+  UserService,
+  UserController,
+} = require('../module/user/module');
 
 function configureSequelizeMainDatabase() {
   const sequelize = new Sequelize({
@@ -44,12 +50,19 @@ function configureSession(container) {
   };
   return session(sessionOptions);
 }
-
+// Models Config
 function configureCarModel(container) {
   CarModel.setup(container.get('Sequelize'));
   return CarModel;
 }
-
+/**
+ *
+ * @param {DIContainer} container
+ */
+function configureUserModel(container) {
+  UserModel.setup(container.get('Sequelize'));
+  return UserModel;
+}
 function configureMulter() {
   const storage = multer.diskStorage({
     destination(req, file, cb) {
@@ -80,6 +93,7 @@ function addCommonDefinitions(container) {
     Session: factory(configureSession),
   });
 }
+
 function addCarModulesDefinitions(container) {
   container.addDefinitions({
     CarController: object(CarController).construct(get('CarService')),
@@ -88,9 +102,19 @@ function addCarModulesDefinitions(container) {
     CarModel: factory(configureCarModel),
   });
 }
+
+function addUserModulesDefinitions(container) {
+  container.addDefinitions({
+    UserController: object(UserController).construct(get('UserService')),
+    UserService: object(UserService).construct(get('UserRepository')),
+    UserRepository: object(UserRepository).construct(get('UserModel')),
+    UserModel: factory(configureUserModel),
+  });
+}
 module.exports = function configureDI() {
   const container = new DIContainer();
   addCommonDefinitions(container);
   addCarModulesDefinitions(container);
+  addUserModulesDefinitions(container);
   return container;
 };
