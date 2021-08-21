@@ -1,0 +1,47 @@
+{% extends "view/admin/layout/base.html" %}
+{% block body %}
+{% set user = data.user %}
+ <section class="section">
+    <div class="columns is-centered ">
+        <div class="column is-narrow">
+            <h1 class="is-size-1-desktop is-size-3-mobile is-size-2-tablet has-text-centered pb-5"> 
+                All Customers
+            </h1>
+            <div class="table-container ">
+                <table class="table is-striped">
+                    <thead>
+                        <tr>
+                            <th><abbr title="ID"> ID</abbr></th>
+                            <th>Name(s)</th>
+                            <th>Last Name</th>
+                            <th>Document Type</th>
+                            <th>Document Number</th>
+                            <th>Nationality</th>
+                            <th>Address</th>
+                            <th>Phone Number</th>
+                            <th>Email</th>
+                            <th>Birthdate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in data.users %}
+                        <tr>
+                            <th>{{user.id}}</th>
+                            <td>{{user.firstName}}</td>
+                            <td>{{user.lastName}}</td>
+                            <td>{{user.documentType}}</td>
+                            <td>{{user.documentNumber}}</td>
+                            <td>{{user.nationality}}</td>
+                            <td>{{user.address}}</td>
+                            <td>{{user.phoneNumber}}</td>
+                            <td>{{user.email}}</td>
+                            <td>{{user.birthdate}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+ </section>
+{% endblock %}

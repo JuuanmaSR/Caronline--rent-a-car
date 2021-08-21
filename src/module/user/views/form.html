@@ -1,0 +1,78 @@
+{% extends "view/admin/layout/base.html" %}
+{% block body %}
+<div class="container is-fluid pb-5">
+    <h1 class="is-size-1-desktop is-size-3-mobile is-size-2-tablet has-text-centered pb-5 pt-5">
+      Register a customer
+      </h1>
+  </h1>
+    <form action="/admin/users/save" method="POST" id="userform">
+        <div class="field">
+            <label class="label">Name(s)</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Juan" name="firstName" value="" autocomplete="off" required>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Last Name</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Fernández" name="lastName" value=""  autocomplete="off" required>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Document Type</label>
+            <div class="control">
+              <div class="select">
+                <select name="documentType" form="userform" required>
+                  <option value="DNI"> DNI</option>
+                  <option value="CI">CI</option>
+                  <option value="Passaport">Passaport</option>
+                </select>
+              </div>
+            </div>
+        </div>
+        <div class="field">
+          <label class="label">Document Number</label>
+          <div class="control">
+            <input class="input" type="number" min="0" placeholder="41072694" name="documentNumber" value="" autocomplete="off" required>
+          </div>
+      </div>
+      <div class="field">
+        <label class="label">Nationality</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Argentina" name="nationality" value="" autocomplete="off" required>
+        </div>
+    </div>
+    <div class="field">
+        <label class="label">Address</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Av.San Martin 1940" name="address" value="" autocomplete="off" required>
+        </div>
+    </div>
+    <div class="field">
+      <label class="label">Phone Number</label>
+      <div class="control">
+        <input class="input" placeholder="03329622172" name="phoneNumber" value="" required>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Email</label>
+      <div class="control">
+        <input class="input" type="email" placeholder="example@example.com" name="email" value="" autocomplete="off" required>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Birthdate</label>
+      <div class="control">
+        <input class="input" type="date" name="birthdate" value="" autocomplete="off" required>
+      </div>
+    </div>
+    <div class="field is-grouped is-grouped-left">
+      <p class="control">
+        <button type="submit" class="button is-primary">
+          Submit
+        </button>
+      </p>
+    </div>
+    </form>
+</div>
+{% endblock %}
