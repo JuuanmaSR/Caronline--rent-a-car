@@ -1,5 +1,9 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable global-require */
 /* eslint-disable no-console */
-require('dotenv').config();
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
 const express = require('express');
 const nunjucks = require('nunjucks');
 
