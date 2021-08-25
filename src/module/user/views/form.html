@@ -1,11 +1,13 @@
 {% extends "views/admin/layout/base.html" %}
 {% block body %}
+{% set user = data.user %}
 <div class="container is-fluid pb-5">
     <h1 class="is-size-1-desktop is-size-3-mobile is-size-2-tablet has-text-centered pb-5 pt-5">
       Register a customer
       </h1>
   </h1>
     <form action="/admin/users/save" method="POST" id="userform">
+      <input type="number" value="{{user.id}}" hidden>
         <div class="field">
             <label class="label">Name(s)</label>
             <div class="control">
