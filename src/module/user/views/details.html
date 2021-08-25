@@ -1,0 +1,67 @@
+{% extends "views/admin/layout/base.html" %}
+{% block body %}
+{% set user = data.user %}
+<section class="section ">
+    <div class="container">
+        <h1 class="is-size-1-desktop is-size-3-mobile is-size-2-tablet has-text-centered pb-5"> 
+            User details with ID: {{user.id}}
+        </h1>
+        <div class="columns is-desktop is-centered ">
+            <div class="column is-size-7-mobile is-6-tablet is-5-desktop ">
+                <div class="box has-background-grey-lighter">
+                    <h1 class="title has-text-black">
+                        User information
+                    </h1>
+                    <div class="box table-container">
+                        <table class="table is-fullwidth">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <td>{{ user.fullName }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Document type</th>
+                                    <td>{{ user.documentType }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Document number</th>
+                                    <td>{{ user.documentNumber }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Nationality</th>
+                                    <td>{{ user.nationality}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Address</th>
+                                    <td>{{ user.address }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Phone number</th>
+                                    <td>{{ user.phoneNumber }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Email</th>
+                                    <td>{{ user.email }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Birthdate</th>
+                                    <td>{{ user.formattedBirthdate }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+             <div class="column is-size-7-mobile is-6-tablet is-5-desktop">
+                <div class="box has-background-grey-lighter">
+                    <h1 class="title has-text-black">
+                        Rent information
+                    </h1>
+                    <div class="box table-container">
+                       
+                    </div>
+                </div>
+            </div>
+    </div>
+</section>
+{% endblock %}

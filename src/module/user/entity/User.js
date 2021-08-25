@@ -1,18 +1,18 @@
 module.exports = class User {
   /**
      *
-     * @param {number}  id
-     * @param {string}  firstName
-     * @param {string}  lastName
-     * @param {string}  documentType
-     * @param {number}  documentNumber
-     * @param {string}  nationality
-     * @param {string}  address
-     * @param {string}  phoneNumber
-     * @param {string}  email
-     * @param {string}  birthdate
-     * @param {string}  createdAt
-     * @param {string}  updatedAt
+     * @param {Number}  id Number
+     * @param {string}  firstName String
+     * @param {string}  lastName String
+     * @param {string}  documentType String
+     * @param {number}  documentNumber Number
+     * @param {string}  nationality String
+     * @param {string}  address String
+     * @param {string}  phoneNumber String
+     * @param {string}  email String
+     * @param {string}  birthdate String
+     * @param {string}  createdAt String
+     * @param {string}  updatedAt String
      */
   constructor({
     id,
@@ -38,7 +38,21 @@ module.exports = class User {
     this.phoneNumber = phoneNumber;
     this.email = email;
     this.birthdate = birthdate;
+    this.formattedBirthdate = this.formatBirthdate();
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
+  }
+
+  formatBirthdate() {
+    return new Date(this.birthdate).toLocaleString(false, {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+      timeZone: 'UTC',
+    });
+  }
+
+  get fullName() {
+    return (`${this.firstName} ${this.lastName}`);
   }
 };

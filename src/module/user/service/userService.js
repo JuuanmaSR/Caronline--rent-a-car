@@ -1,5 +1,6 @@
 /* eslint-disable class-methods-use-this */
 const UserNotDefinedError = require('./error/userNotDefinedError');
+const UserIdNotDefinedError = require('./error/userIdNotDefinedError');
 
 module.exports = class UserService {
   /**
@@ -19,6 +20,13 @@ module.exports = class UserService {
       throw new UserNotDefinedError();
     }
     return this.userRepository.save(user);
+  }
+
+  async getById(id) {
+    if (id === undefined) {
+      throw new UserIdNotDefinedError();
+    }
+    return this.userRepository.getById(id);
   }
 
   async getAll() {
