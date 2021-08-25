@@ -64,6 +64,7 @@ module.exports = class UserModel extends Model {
       sequelize: sequelizeIntance,
       modelName: 'User',
       timestamps: false,
+      underscored: true,
       paranoid: true,
     });
     return UserModel;
