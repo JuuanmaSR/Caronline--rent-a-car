@@ -9,9 +9,20 @@
         <div class="columns is-desktop is-centered ">
             <div class="column is-size-7-mobile is-6-tablet is-5-desktop ">
                 <div class="box has-background-grey-lighter">
-                    <h1 class="title has-text-black">
-                        User information
-                    </h1>
+                    <div class="container is-flex pb-5 " style="align-items: baseline;justify-content: space-between;">
+                        <h1 class="title has-text-black is-size-6-mobile">
+                            User information 
+                        </h1>
+                        <div class="buttons are-normal ">
+                            <a href="/admin/users/editauser/{{user.id}}" class="button is-info action-edit-user" data-id="{{user.id}}" data-fullname="{{user.fullName}}">
+                                <span class="icon is-small">
+                                    <i class="far fa-edit"></i>
+                                </span>
+                                <span>Edit</span>
+                        
+                            </a>
+                        </div>
+                    </div>
                     <div class="box table-container">
                         <table class="table is-fullwidth">
                             <tbody>
@@ -54,7 +65,7 @@
             </div>
              <div class="column is-size-7-mobile is-6-tablet is-5-desktop">
                 <div class="box has-background-grey-lighter">
-                    <h1 class="title has-text-black">
+                    <h1 class="title has-text-black pb-5 is-size-6-mobile">
                         Rent information
                     </h1>
                     <div class="box table-container">
@@ -64,4 +75,5 @@
             </div>
     </div>
 </section>
+<script src="/js/adminViewJs/userModule/allusers.js"></script>
 {% endblock %}

@@ -28,16 +28,36 @@
                             <th>Last Name</th>
                             <th>Document Type</th>
                             <th>Document Number</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for user in data.users %}
                         <tr>
-                            <th><a href="/admin/users/details/{{user.id}}">{{user.id}}</a></th>
+                            <th>{{user.id}}</th>
                             <td>{{user.firstName}}</td>
                             <td>{{user.lastName}}</td>
                             <td>{{user.documentType}}</td>
                             <td>{{user.documentNumber}}</td>
+                            <td>
+                                <div class="buttons are-small">
+                                    <a href="/admin/users/editauser/{{user.id}}" class="button is-info action-edit-user" data-id="{{user.id}}" data-fullname="{{user.fullName}}">
+                                        <span class="icon is-small">
+                                            <i class="fas fa-user-edit"></i>
+                                        </span>
+                                        <span>Edit</span>
+                                    </a>
+                                    
+                                    <a href="/admin/users/details/{{user.id}}" class="button is-success">
+                                        <span class="icon is-small">
+                                            <i class="fas fa-info-circle"></i>
+                                        </span>
+                                        <span>Details</span>
+                                    </a>
+                                </div>
+                               
+                                
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -46,4 +66,7 @@
         </div>
     </div>
  </section>
+
+<script src="/js/adminViewJs/userModule/allusers.js"></script>
+
 {% endblock %}
