@@ -47,7 +47,23 @@ module.exports = class UserController extends AbstractUserController {
       res.render('user/views/form');
     } catch (error) {
       req.session.errors = [error.message];
-      res.redirect('/admin/users/allusers');
+      res.redirect('/admin');
+    }
+  }
+
+  async getEditAUser(req, res) {
+    const { id } = req.params;
+    if (id === undefined) {
+      throw new UserIdNotDefinedError();
+    }
+    const user = await this.userService.getById(id);
+    try {
+      res.render('user/views/form', {
+        data: { user },
+      });
+    } catch (error) {
+      req.session.errors = [error.message];
+      res.redirect('/admin');
     }
   }
 
@@ -69,7 +85,7 @@ module.exports = class UserController extends AbstractUserController {
       });
     } catch (error) {
       req.session.errors = [error.message, error.stack];
-      res.redirect('/admin/users/allusers');
+      res.redirect('/admin');
     }
   }
 

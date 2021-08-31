@@ -1,80 +1,87 @@
 {% extends "views/admin/layout/base.html" %}
 {% block body %}
 {% set user = data.user %}
-<div class="container is-fluid pb-5">
-    <h1 class="is-size-1-desktop is-size-3-mobile is-size-2-tablet has-text-centered pb-5 pt-5">
-      Register a customer
-      </h1>
-  </h1>
-    <form action="/admin/users/save" method="POST" id="userform">
-      <input type="number" value="{{user.id}}" hidden>
-        <div class="field">
-            <label class="label">Name(s)</label>
-            <div class="control">
-              <input class="input" type="text" placeholder="Juan" name="firstName" value="" autocomplete="off" required>
-            </div>
-        </div>
-        <div class="field">
-            <label class="label">Last Name</label>
-            <div class="control">
-              <input class="input" type="text" placeholder="Fernández" name="lastName" value=""  autocomplete="off" required>
-            </div>
-        </div>
-        <div class="field">
-            <label class="label">Document Type</label>
-            <div class="control">
-              <div class="select">
-                <select name="documentType" form="userform" required>
-                  <option value="DNI"> DNI</option>
-                  <option value="CI">CI</option>
-                  <option value="Passaport">Passaport</option>
-                </select>
+<div class="container is-fluid pn-5">
+  <div class="columns is-centered is-vcentered">
+    <div class="column is-narrow">
+      <h1 class="is-size-1-desktop is-size-3-mobile is-size-2-tablet has-text-centered pb-5 pt-5">
+        {{"Editing user with ID: " + user.id if user.id else "Register a customer"}}
+        </h1>
+    </h1>
+      <form action="/admin/users/save" method="POST" id="userform" style="max-width: 70vh;">
+        <input type="number" value="{{user.id}}" hidden>
+          <div class="field ">
+              <label class="label">Name(s)</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="Juan" name="firstName" value="{{user.firstName}}" autocomplete="off" required>
               </div>
+          </div>
+          <div class="field">
+              <label class="label">Last Name</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="Fernández" name="lastName" value="{{user.lastName}}"  autocomplete="off" required>
+              </div>
+          </div>
+          <div class="field">
+              <label class="label">Document Type</label>
+              <div class="control">
+                <div class="select">
+                  <select name="documentType" form="userform" required>
+                    <option value="DNI" {{ 'selected' if user.documentType === 'DNI'}}>DNI</option>
+                    <option value="CI" {{'selected' if user.documentType === 'CI'}}>CI</option>
+                    <option value="Passaport" {{'selected' if user.documentType === 'Passaport'}}>Passaport</option>
+                  </select>
+                </div>
+              </div>
+          </div>
+          <div class="field">
+            <label class="label">Document Number</label>
+            <div class="control">
+              <input class="input" type="number" min="0" placeholder="41072694" name="documentNumber" value="{{user.documentNumber}}" autocomplete="off" required>
             </div>
         </div>
         <div class="field">
-          <label class="label">Document Number</label>
+          <label class="label">Nationality</label>
           <div class="control">
-            <input class="input" type="number" min="0" placeholder="41072694" name="documentNumber" value="" autocomplete="off" required>
+            <input class="input" type="text" placeholder="Argentina" name="nationality" value="{{user.nationality}}" autocomplete="off" required>
           </div>
       </div>
       <div class="field">
-        <label class="label">Nationality</label>
+          <label class="label">Address</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Av.San Martin 1940" name="address" value="{{user.address}}" autocomplete="off" required>
+          </div>
+      </div>
+      <div class="field">
+        <label class="label">Phone Number</label>
         <div class="control">
-          <input class="input" type="text" placeholder="Argentina" name="nationality" value="" autocomplete="off" required>
+          <input class="input" placeholder="03329622172" name="phoneNumber" value="{{user.phoneNumber}}" required>
         </div>
-    </div>
-    <div class="field">
-        <label class="label">Address</label>
+      </div>
+      <div class="field">
+        <label class="label">Email</label>
         <div class="control">
-          <input class="input" type="text" placeholder="Av.San Martin 1940" name="address" value="" autocomplete="off" required>
+          <input class="input" type="email" placeholder="example@example.com" name="email" value="{{user.email}}" autocomplete="off" required>
         </div>
-    </div>
-    <div class="field">
-      <label class="label">Phone Number</label>
-      <div class="control">
-        <input class="input" placeholder="03329622172" name="phoneNumber" value="" required>
       </div>
-    </div>
-    <div class="field">
-      <label class="label">Email</label>
-      <div class="control">
-        <input class="input" type="email" placeholder="example@example.com" name="email" value="" autocomplete="off" required>
+      <div class="field">
+        <label class="label">Birthdate</label>
+        <div class="control">
+          <input class="input" type="date" name="birthdate" value="{{user.birthdate}}" autocomplete="off" required>
+        </div>
       </div>
-    </div>
-    <div class="field">
-      <label class="label">Birthdate</label>
-      <div class="control">
-        <input class="input" type="date" name="birthdate" value="" autocomplete="off" required>
+      <div class="field is-grouped is-grouped-left">
+        <p class="control">
+          <button type="submit" class="button is-primary">
+            Submit
+          </button>
+          <div class="control">
+            <button class="button is-link is-light"><a href="/admin/users/allusers">Cancel</a></button>
+          </div>
+        </p>
       </div>
+      </form>
     </div>
-    <div class="field is-grouped is-grouped-left">
-      <p class="control">
-        <button type="submit" class="button is-primary">
-          Submit
-        </button>
-      </p>
-    </div>
-    </form>
+  </div>
 </div>
 {% endblock %}
