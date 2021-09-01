@@ -2,105 +2,102 @@
 {% block body %}
 {% set car = data.car %}
 <div class="container is-fluid pb-5">
-  <h1 class="is-size-1-desktop is-size-3-mobile is-size-2-tablet has-text-centered pb-5 pt-5">
-    {{"Editing car with ID: " + car.id if car.id else "Add a car"}}
-  </h1>
-  <form action="/admin/cars/save" method="POST" enctype="multipart/form-data" id="carform">
-    <input type="number" name="id" value="{{car.id}}" hidden>
-    <div id="file-js-example" class="file has-name is-fullwidth mt-4">
-      <label class="file-label">
-        <input class="file-input" type="file" name="crestUrl" value="" required>
-        <span class="file-cta">
-          <span class="file-icon">
-            <i class="fas fa-upload"></i>
-          </span>
-          <span class="file-label">
-            Choose a file…
-          </span>
-        </span>
-        <span class="file-name">
-          No file uploaded
-        </span>
-      </label>
+  <div class="columns is-centered is-vcentered">
+    <div class="column is-narrow">
+      <h1 class="is-size-1-desktop is-size-3-mobile is-size-2-tablet has-text-centered pb-5 pt-5">
+        {{"Editing car with ID: " + car.id if car.id else "Add a car"}}
+      </h1>
+      <form action="/admin/cars/save" method="POST" enctype="multipart/form-data" id="carform">
+        <input type="number" name="id" value="{{car.id}}" hidden>
+        <div id="file-js-example" class="file has-name is-fullwidth mt-4">
+          <label class="file-label">
+            <input class="file-input" type="file" name="crestUrl" value="" >
+            <span class="file-cta">
+              <span class="file-icon">
+                <i class="fas fa-upload"></i>
+              </span>
+              <span class="file-label">
+                Choose a file…
+              </span>
+            </span>
+            <span class="file-name">
+              No file uploaded
+            </span>
+          </label>
+        </div>
+          <div class="field">
+            <label class="label">Car model</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Cronos" name="carModel" value="{{car.carModel}}" required>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Brand</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Fiat" name="brand" value="{{car.brand}}" required>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Year</label>
+            <div class="control">
+              <input class="input" type="number" min="0" placeholder="2020" name="year" value="{{car.year}}" required>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Kilometres</label>
+            <div class="control">
+              <input class="input" type="number" min="0" placeholder="20450" name="kilometres" value="{{car.kilometres}}" required>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Color</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="white" name="color" value="{{car.color}}" required>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Air Conditioner</label>
+            <div class="control">
+              <div class="select">
+                <select name="airConditioner" form="carform" required>
+                  <option value=true {{'selected' if car.airConditioner ===true }}>Yes</option>
+                  <option value=false {{'selected' if car.airConditioner === false }}>No</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Gearbox</label>
+            <div class="control">
+              <div class="select">
+                <select name="gearBox" form="carform" required>
+                  <option value="Manual" {{'selected' if car.gearBox === 'Manual'}}>Manual</option>
+                  <option value="Automatic" {{'selected' if car.gearBox === 'Automatic'}}>Automatic</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Rental value per day</label>
+            <div class="control">
+              <input class="input" type="number" placeholder="3989" min="0" name="rentalValuePerDay" value="{{car.rentalValuePerDay}}" required>
+            </div>
+          </div>
+          <div class="field is-grouped is-grouped-left">
+            <p class="control">
+              <button type="submit" class="button is-primary">
+                Submit
+              </button>
+              <div class="control">
+                <button class="button is-link is-light"><a href="/admin/cars/allcars/">Cancel</a></button>
+              </div>
+            </p>
+          </div>
+      </form>
     </div>
-      <div class="field">
-        <label class="label">Car model</label>
-        <div class="control">
-          <input class="input" type="text" placeholder="Cronos" name="carModel" value="{{car.carModel}}" required>
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">Brand</label>
-        <div class="control">
-          <input class="input" type="text" placeholder="Fiat" name="brand" value="{{car.brand}}" required>
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">Year</label>
-        <div class="control">
-          <input class="input" type="number" min="0" placeholder="2020" name="year" value="{{car.year}}" required>
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">Kilometres</label>
-        <div class="control">
-          <input class="input" type="number" min="0" placeholder="20450" name="kilometres" value="{{car.kilometres}}" required>
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">Color</label>
-        <div class="control">
-          <input class="input" type="text" placeholder="white" name="color" value="{{car.color}}" required>
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">Air Conditioner</label>
-        <div class="control">
-          <div class="select">
-            <select name="airConditioner" form="carform" required>
-              {% if car.airConditioner %}
-              <option value=true selected>Yes</option>
-              <option value=false>No</option>
-              {% else %}
-              <option value=true>Yes</option>
-              <option value=false selected>No</option>
-              {% endif %}
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">Gearbox</label>
-        <div class="control">
-          <div class="select">
-            <select name="gearBox" form="carform" required>
-              {% if car.gearBox == "automatic" %}
-              <option value="Manual">Manual</option>
-              <option value="Automatic" selected>Automatic</option>
-              {% else %}
-              <option value="Manual" selected>Manual</option>
-              <option value="Automatic">Automatic</option>
-              {% endif %}
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">Rental value per day</label>
-        <div class="control">
-          <input class="input" type="number" placeholder="3989" min="0" name="rentalValuePerDay" value="{{car.rentalValuePerDay}}" required>
-        </div>
-      </div>
-      <div class="field is-grouped is-grouped-left">
-        <p class="control">
-          <button type="submit" class="button is-primary">
-            Submit
-          </button>
-        </p>
-      </div>
-  </form>
+  </div>
 </div>
-{% block footerScripts %}
-<script src="/js/adminViewJs/form.js"></script>
-{% endblock %}
+
+<script src="/js/adminViewJs/carModule/form.js"></script>
+
 {% endblock %}
