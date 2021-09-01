@@ -20,11 +20,11 @@
       <div class="columns is-vcentered is-multiline">
     
         {% for car in data.cars %}
-        <div class="column is-6-tablet is-3-desktop">
+        <div class="column is-4-desktop is-6-tablet">
           <div class="card">
             <div class="card-image">
               <figure class="image is-3by2">
-                <img src="{{car.crestUrl}}" alt="Placeholder image">
+                <img src="{% if car.crestUrl %} {{car.crestUrl}} {% else %} /images/notImage.png {% endif %}" alt="car">
               </figure>
             </div>
             <div class="card-content">
@@ -32,7 +32,7 @@
                 <div class="media">
                   <div class="media-left">
                     <figure class="image is-48x48">
-                      <img src="{{car.crestUrl}}" alt="Placeholder image">
+                      <img src="{% if car.crestUrl %} {{car.crestUrl}} {% else %} /images/notImage.png {% endif %}" alt="car">
                     </figure>
                   </div>
                   <div class="media-content">
@@ -49,59 +49,45 @@
                     <span><p class="pl-2">Info</p></span>
                   </span>
                 <div class="content">
-                  <ul>
-                    <li>
-                      <span class="has-text-weight-medium">ID: 
-                        <span class="is-family-code">
-                          {{car.id}}
-                        </span>
-                      </span>
-                    </li>
-                    <li>
-                      <span class="has-text-weight-medium">Year: 
-                        <span class="is-family-code">
-                          {{car.year}}
-                        </span>
-                      </span>
-                    </li>
-                    <li>
-                      <span class="has-text-weight-medium">Kilometres:
-                         <span class="is-family-code">
-                           {{car.kilometres}}
-                         </span>
-                        </span>
-                    </li>
-                    <li>
-                      <span class="has-text-weight-medium">Color:
-                        <span class="is-family-code">
-                          {{car.color}}
-                        </span>
-                    </span>
-                    </li>
-                    <li class="is-align-content-centerr">
-                      <span class="has-text-weight-medium ">
-                        Air Conditioner:
-                         {% if car.airConditioner %}
-                         <span class="icon has-text-success">
-                          <i class="fas fa-check"></i>
-                        </span>
-                        {% else %}
-                        <span class="icon has-text-danger">
-                          <i class="fas fa-times"></i>
-                        </span>
-                        {% endif %}
-                        
-                      </span>
-                    </li>
-                    <li>
-                      <span class="has-text-weight-medium">
-                        Gearbox:
-                        <span class="is-family-code">
-                          {{car.gearBox}}
-                        </span>
-                      </span>
-                    </li>
-                  </ul>
+                  <div class="table-container">
+                     <table class="table is-fullwidth">
+                          <tbody>
+                            <tr>
+                                <th>ID</th>
+                                <td>{{ car.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Year</th>
+                                <td>{{ car.year }}</td>
+                            </tr>
+                            <tr>
+                                <th>Kilometres</th>
+                                <td>{{ car.kilometres }}</td>
+                            </tr>
+                            <tr>
+                                <th>Color</th>
+                                <td>{{ car.color}}</td>
+                            </tr>
+                            <tr>
+                                <th>Air Conditioner</th>
+                                <td style="vertical-align: middle;">{% if car.airConditioner %}
+                                    <span class="icon has-text-success">
+                                    <i class="fas fa-check"></i>
+                                  </span>
+                                  {% else %}
+                                  <span class="icon has-text-danger">
+                                    <i class="fas fa-times"></i>
+                                  </span>
+                                  {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Gearbox</th>
+                                <td>{{ car.gearBox }}</td>
+                            </tr>
+                        </tbody>
+                     </table>
+                  </div>
                  </div>
               </div>
               <div class="box">
@@ -133,5 +119,7 @@
   
 
   </section>
-    <script src="/js/adminViewJs/allcars.js"></script>
+  
+  <script src="/js/adminViewJs/carModule/allcars.js"></script>
+
 {% endblock %}
