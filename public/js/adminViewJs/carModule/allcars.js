@@ -16,7 +16,7 @@ document.querySelectorAll('.action-delete').forEach(($actionDelete) => {
   });
 });
 
-document.querySelectorAll('.action-edit').forEach(($actionEdit) => {
+document.querySelectorAll('.action-edit-car').forEach(($actionEdit) => {
   $actionEdit.addEventListener('click', (e) => {
     const { id, brand, model } = $actionEdit.dataset;
     if (

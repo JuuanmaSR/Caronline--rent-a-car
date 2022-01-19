@@ -26,6 +26,7 @@ router.get('/', (req, res) => {
   });
 });
 // Cars routes
+router.get(`/${routeCars}/details/:id`, carController.getCarDetails.bind(carController));
 router.get(`/${routeCars}/allcars`, carController.getAllCars.bind(carController));
 router.get(`/${routeCars}/addacar`, carController.getAddACar.bind(carController));
 router.get(`/${routeCars}/deleteacar/:id`, carController.carDelete.bind(carController));
