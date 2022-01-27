@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable eqeqeq */
 /* eslint-disable global-require */
 /* eslint-disable no-console */
@@ -26,7 +27,18 @@ app.use(express.json());
 app.use(express.static('public'));
 
 app.use('/admin', adminRoutes);
-
+/**
+*
+* @param {import('express').Request} req
+* @param {import('express').Response} res
+*/
+app.use((error, req, res, next) => {
+  res.status(500);
+  res.render('views/admin/errorpage', {
+    tittle: 'Error',
+    error,
+  });
+});
 app.listen(port, () => {
   console.log(`App listening at port ${port}`);
 });
