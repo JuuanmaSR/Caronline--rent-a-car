@@ -33,7 +33,22 @@ module.exports = class UserController extends AbstractUserController {
       res.redirect('/admin/users/allusers');
     } catch (error) {
       req.session.errors = [error.message, error.stack];
+  async deleteUser(req, res, next) {
+    try {
+      const { id } = req.params;
+      if (id === undefined) {
+        throw new UserIdNotDefinedError('On userController(delete) the user ID is undefined');
+      }
+
+      const user = await this.userService.getById(id);
+      if (user === undefined) {
+        throw new UserNotFoundError('On userController(delete) the user is not found');
+      }
+      await this.userService.delete(user);
+      req.session.messages = [`The user ${user.fullName} with id #${user.id}, was be removed successfully `];
       res.redirect('/admin/users/allusers');
+    } catch (error) {
+      next(error);
     }
   }
 

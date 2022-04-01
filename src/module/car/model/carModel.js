@@ -3,7 +3,7 @@ const { Sequelize, Model, DataTypes } = require('sequelize');
 module.exports = class CarModel extends Model {
   /**
      * @param {import('sequelize').Sequelize} sequelizeIntance
-     * @returns {typeof CarModel}
+     * @returns {Model} CarModel
      */
   static setup(sequelizeIntance) {
     CarModel.init({
@@ -49,11 +49,16 @@ module.exports = class CarModel extends Model {
         type: DataTypes.DATE,
         defaultValue: Sequelize.NOW,
       },
+      deletedAt: {
+        type: DataTypes.DATE,
+      },
     },
     {
       sequelize: sequelizeIntance,
       modelName: 'Car',
-      timestamps: false,
+      tableName: 'cars',
+      underscored: true,
+      paranoid: true,
     });
     return CarModel;
   }

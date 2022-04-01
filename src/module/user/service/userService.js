@@ -22,6 +22,17 @@ module.exports = class UserService {
     return this.userRepository.save(user);
   }
 
+  /**
+   *
+   * @param {import('../entity/User)} user
+   */
+  async delete(user) {
+    if (!user || !user.id) {
+      throw new UserIdNotDefinedError('On the userService(delete) the user or ID is undefined');
+    }
+    return this.userRepository.delete(user);
+  }
+
   async getById(id) {
     if (id === undefined) {
       throw new UserIdNotDefinedError();

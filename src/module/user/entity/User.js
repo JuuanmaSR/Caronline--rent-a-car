@@ -5,7 +5,7 @@ module.exports = class User {
      * @param {string}  firstName String
      * @param {string}  lastName String
      * @param {string}  documentType String
-     * @param {number}  documentNumber Number
+     * @param {Number}  documentNumber Number
      * @param {string}  nationality String
      * @param {string}  address String
      * @param {string}  phoneNumber String
@@ -27,6 +27,7 @@ module.exports = class User {
     birthdate,
     createdAt,
     updatedAt,
+    deletedAt,
   }) {
     this.id = id;
     this.firstName = firstName;
@@ -41,6 +42,7 @@ module.exports = class User {
     this.formattedBirthdate = this.formatBirthdate();
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
+    this.deletedAt = deletedAt;
   }
 
   formatBirthdate() {

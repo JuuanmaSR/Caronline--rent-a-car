@@ -28,6 +28,19 @@ module.exports = class UserRepository extends AbstractUserRepository {
   }
 
   /**
+  *
+  * @param {import('../entity/User')} user
+  */
+
+  async delete(user) {
+    if (!user || !user.id) {
+      throw new UserIdNotDefinedError('On userRepository(delete) the car or ID is undefined');
+    }
+
+    return Boolean(await this.userModel.destroy({ where: { id: user.id } }));
+  }
+
+  /**
    *
    * @param {Number} id
    */
