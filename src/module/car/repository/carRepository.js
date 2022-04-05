@@ -1,6 +1,7 @@
 const AbstractCarRepository = require('./abstractCarRepository');
-const CarNotFoundError = require('./error/CarNotFoundError');
-const CarIdNotDefinedError = require('./error/CarIdNotDefinedError');
+const CarNotFoundError = require('../error/CarNotFoundError');
+const CarIdNotDefinedError = require('../error/CarIdNotDefinedError');
+const CarNotDefinedError = require('../error/CarNotDefinedError');
 const { fromModelToEntity } = require('../mapper/carMapper');
 
 module.exports = class CarRepository extends AbstractCarRepository {
@@ -19,18 +20,23 @@ module.exports = class CarRepository extends AbstractCarRepository {
    * @returns {Promise<import('../entity/car')>}
    */
   async save(car) {
+    if (car === undefined) {
+      throw new CarNotDefinedError('On carRepository(save) the car is undefined');
+    }
     let carModel;
 
     const buildOptions = { isNewRecord: !car.id };
     carModel = this.carModel.build(car, buildOptions);
     carModel = await carModel.save();
-
+    if (carModel === undefined) {
+      throw new CarNotDefinedError('On carRepository(save) the car is undefined');
+    }
     return fromModelToEntity(carModel);
   }
 
   async delete(car) {
     if (!car || !car.id) {
-      throw new CarIdNotDefinedError();
+      throw new CarIdNotDefinedError('On the carRepository(delete) the car or ID is undefined');
     }
 
     return Boolean(await this.carModel.destroy({ where: { id: car.id } }));
@@ -41,7 +47,9 @@ module.exports = class CarRepository extends AbstractCarRepository {
  * @param {Number} id
  */
   async getById(id) {
-    const carModel = await this.carModel.findOne({ where: { id } });
+    if (id === undefined) {
+      throw new CarIdNotDefinedError('On the carRepository(getById) the car id is undefined');
+    }
     if (!carModel) {
       throw new CarNotFoundError(`Vehicle ID: ${id} not found`);
     }

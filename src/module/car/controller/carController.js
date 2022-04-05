@@ -1,7 +1,9 @@
 /* eslint-disable class-methods-use-this */
 const { fromDataToEntity } = require('../mapper/carMapper');
 const AbstractCarController = require('./abstractCarController');
-const CarIdNotDefinedError = require('./error/carIdNotDefinedError');
+const CarIdNotDefinedError = require('../error/CarIdNotDefinedError');
+const CarNotDefinedError = require('../error/CarNotDefinedError');
+const CarNotFoundError = require('../error/CarNotFoundError');
 
 module.exports = class CarController extends AbstractCarController {
   /**
@@ -30,27 +32,38 @@ module.exports = class CarController extends AbstractCarController {
     req.session.messages = [];
   }
 
-  async carDelete(req, res) {
+  async carDelete(req, res, next) {
     try {
       const { id } = req.params;
+      if (id === undefined) {
+        throw new CarIdNotDefinedError('On carController(delete) the car ID is undefined');
+      }
       const car = await this.carService.getById(id);
+      if (car === undefined) {
+        throw new CarNotFoundError('On carController(delete) the car is not found');
+      }
       await this.carService.delete(car);
-      req.session.messages = [` (${car.brand} ${car.carModel}) vehicle with ID (${id}) could be removed sucessfully`];
-    } catch (e) {
-      req.session.errors = ['Vehicle could not be removed', e.message];
+      req.session.messages = [` (${car.brand} ${car.carModel}) vehicle with ID (${id}) was be removed sucessfully`];
+      res.redirect('/admin/cars/allcars');
+    } catch (error) {
+      next(error);
     }
-    res.redirect('/admin/cars/allcars');
   }
 
-  async carSave(req, res) {
+  async carSave(req, res, next) {
     try {
       const car = fromDataToEntity(req.body);
+      if (car === undefined) {
+        throw new CarNotDefinedError('On carController(save) the car is undefined');
+      }
       if (req.file) {
         const path = `/uploads/${req.file.filename}`;
         car.crestUrl = path;
       }
       const savedCar = await this.carService.save(car);
-
+      if (savedCar === undefined) {
+        throw new CarNotDefinedError('On carController(save) the car is undefined');
+      }
       if (car.id) {
         req.session.messages = [`The car with ID (${car.id}) was updated correctly`];
       } else {
@@ -58,9 +71,8 @@ module.exports = class CarController extends AbstractCarController {
       }
 
       res.redirect('/admin/cars/allcars');
-    } catch (e) {
-      req.session.errors = [e.message, e.stack];
-      res.redirect('/admin/cars/allcars');
+    } catch (error) {
+      next(error);
     }
   }
 
@@ -69,28 +81,31 @@ module.exports = class CarController extends AbstractCarController {
    * @param {import('express').Request} req
    * @param {import('express').Response} res
    */
-  getAddACar(req, res) {
+  getAddACar(req, res, next) {
     try {
       res.render('car/views/form');
-    } catch (e) {
-      req.session.errors = [e.message];
-      res.redirect('/admin');
+    } catch (error) {
+      next(error);
     }
   }
 
-  async getEditACar(req, res) {
+  async getEditACar(req, res, next) {
     const { id } = req.params;
     if (id === undefined) {
-      throw new CarIdNotDefinedError();
+      throw new CarIdNotDefinedError('On carController(getEditACar) the car ID is undefined');
     }
     const car = await this.carService.getById(id);
+    if (car === undefined) {
+      throw new CarNotFoundError('On carController(getEditACar) the car is not found');
+    }
     try {
       res.render('car/views/form', {
         data: { car },
       });
-    } catch (e) {
-      req.session.errors = [e.message];
-      res.redirect('/admin');
+    } catch (error) {
+      next(error);
+    }
+  }
     }
   }
 };

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable class-methods-use-this */
-const CarIdNotDefinedError = require('./error/carIdNotDefinedError');
-const CarNotDefinedError = require('./error/carNotDefinedError');
+const CarIdNotDefinedError = require('../error/CarIdNotDefinedError');
+const CarNotDefinedError = require('../error/CarNotDefinedError');
 const Car = require('../entity/car');
 
 module.exports = class CarService {
@@ -19,21 +19,21 @@ module.exports = class CarService {
    */
   async save(car) {
     if (car === undefined) {
-      throw new CarNotDefinedError();
+      throw new CarNotDefinedError('On the carService(save) the car is undefined');
     }
     return this.carRepository.save(car);
   }
 
   async delete(car) {
     if (!car || !car.id) {
-      throw new CarNotDefinedError();
+      throw new CarNotDefinedError('On the carService(delete) the car or ID is undefined ');
     }
     return this.carRepository.delete(car);
   }
 
   async getById(id) {
     if (id === undefined) {
-      throw new CarIdNotDefinedError();
+      throw new CarIdNotDefinedError('On the carService(getById) the car ID is undefined');
     }
     return this.carRepository.getById(id);
   }

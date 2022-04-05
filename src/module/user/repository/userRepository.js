@@ -1,6 +1,7 @@
 const AbstractUserRepository = require('./abstractUserRepository');
-const UserNotFoundError = require('./error/userNotFoundError');
-const UserIdNotDefinedError = require('./error/userIdNotDefinedError');
+const UserNotFoundError = require('../error/UserNotFoundError');
+const UserIdNotDefinedError = require('../error/UserIdNotDefinedError');
+const UserNotDefinedError = require('../error/UserNotDefinedError');
 const { fromModelToEntity } = require('../mapper/userMapper');
 
 module.exports = class UserRepository extends AbstractUserRepository {
@@ -19,11 +20,17 @@ module.exports = class UserRepository extends AbstractUserRepository {
    * @returns {Promise<import('../entity/User')>}
    */
   async save(user) {
+    if (user === undefined) {
+      throw new UserNotDefinedError('On userRepository(save) the user is undefined');
+    }
     let userModel;
 
     const buildOptions = { isNewRecord: !user.id };
     userModel = this.userModel.build(user, buildOptions);
     userModel = await userModel.save();
+    if (userModel === undefined) {
+      throw new UserNotDefinedError('On userRepository(save) the user is undefined');
+    }
     return fromModelToEntity(userModel);
   }
 
@@ -46,7 +53,7 @@ module.exports = class UserRepository extends AbstractUserRepository {
    */
   async getById(id) {
     if (id === undefined) {
-      throw new UserIdNotDefinedError();
+      throw new UserIdNotDefinedError('On userRepository(getById) the id is undefined');
     }
     const userModel = await this.userModel.findOne({ where: { id } });
     if (!userModel) {
