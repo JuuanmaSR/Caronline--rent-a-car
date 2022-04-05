@@ -11,7 +11,7 @@ test('No se puede crear una nueva instancia de un AbstractCarController directam
   }
 });
 
-test('Se puede crear una nueva instancia de una clase que hereda de AbstractCarController', () => {
+test('Se puede crear una nueva instancia de una clase que hereda de AbstractCarController', async () => {
   const ConcreteController = class extends AbstractCarController {};
-  expect(new ConcreteController()).toBeInstanceOf(AbstractCarController);
+  await expect(new ConcreteController()).toBeInstanceOf(AbstractCarController);
 });

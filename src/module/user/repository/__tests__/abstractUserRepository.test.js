@@ -15,19 +15,19 @@ test('No se puede intanciar un repositorio abstracto', () => {
   }
 });
 
-test('Se puede instanciar un repositorio concreto que herede del repositorio abstracto', () => {
+test('Se puede instanciar un repositorio concreto que herede del repositorio abstracto', async () => {
   const ConcreteRepository = class extends AbstractUserRepository {};
   const repositoryInstance = new ConcreteRepository();
-  expect(repositoryInstance).toBeInstanceOf(ConcreteRepository);
-  expect(repositoryInstance).toBeInstanceOf(AbstractUserRepository);
+  await expect(repositoryInstance).toBeInstanceOf(ConcreteRepository);
+  await expect(repositoryInstance).toBeInstanceOf(AbstractUserRepository);
 });
 
-test('Llamar a los metodos base sin implementacion concreta da error', () => {
+test('Llamar a los metodos base sin implementacion concreta da error', async () => {
   const ConcreteRepository = class extends AbstractUserRepository {};
   const repositoryInstance = new ConcreteRepository();
 
-  expect(() => repositoryInstance.save()).rejects.toThrowError(MethodNotImplementedError);
-  expect(() => repositoryInstance.getById()).rejects.toThrowError(MethodNotImplementedError);
-  expect(() => repositoryInstance.getAll()).rejects.toThrowError(MethodNotImplementedError);
-  expect(() => repositoryInstance.delete()).rejects.toThrowError(MethodNotImplementedError);
+  await expect(() => repositoryInstance.save()).rejects.toThrowError(MethodNotImplementedError);
+  await expect(() => repositoryInstance.getById()).rejects.toThrowError(MethodNotImplementedError);
+  await expect(() => repositoryInstance.getAll()).rejects.toThrowError(MethodNotImplementedError);
+  await expect(() => repositoryInstance.delete()).rejects.toThrowError(MethodNotImplementedError);
 });

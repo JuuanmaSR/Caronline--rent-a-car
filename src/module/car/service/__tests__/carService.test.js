@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 const CarService = require('../carService');
-const CarIdNotDefinedError = require('../error/carIdNotDefinedError');
-const CarNotDefinedError = require('../error/carNotDefinedError');
+const CarIdNotDefinedError = require('../../error/CarIdNotDefinedError');
+const CarNotDefinedError = require('../../error/CarNotDefinedError');
 const Car = require('../../entity/car');
 
 const repositoryMock = {

@@ -1,9 +1,7 @@
 /* eslint-disable no-undef */
 const UserService = require('../userService');
-const userNotDefinedError = require('../error/userNotDefinedError');
-const UserIdNotDefinedError = require('../error/userIdNotDefinedError');
-const User = require('../../entity/User');
-const UserNotDefinedError = require('../error/userNotDefinedError');
+const UserIdNotDefinedError = require('../../error/UserIdNotDefinedError');
+const UserNotDefinedError = require('../../error/UserNotDefinedError');
 
 const repositoryMock = {
   save: jest.fn(),
