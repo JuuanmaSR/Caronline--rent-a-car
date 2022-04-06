@@ -106,6 +106,27 @@ module.exports = class CarController extends AbstractCarController {
       next(error);
     }
   }
+
+  /**
+   *
+   * @param {import('express').Request} req
+   * @param {import('express').Response} res
+   */
+  async getCarDetails(req, res, next) {
+    try {
+      const { id } = req.params;
+      if (id === undefined) {
+        throw new CarIdNotDefinedError('On carController(getCarDetails) the car ID is undefined');
+      }
+      const car = await this.carService.getById(id);
+      if (car === undefined) {
+        throw new CarNotFoundError('On carController(getCarDetails) the car not found');
+      }
+      res.render('car/views/detailsCar', {
+        data: { car },
+      });
+    } catch (error) {
+      next(error);
     }
   }
 };
