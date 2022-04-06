@@ -1,19 +1,19 @@
 {% extends "views/admin/layout/base.html" %}
 {% block body %}
 {% set user = data.user %}
-<section class="section ">
+<section class="section">
     <div class="container">
         <h1 class="is-size-1-desktop is-size-3-mobile is-size-2-tablet has-text-centered pb-5"> 
-            User details with ID: {{user.id}}
+            User details # {{user.id}}
         </h1>
-        <div class="columns is-desktop is-centered ">
-            <div class="column is-size-7-mobile is-6-tablet is-5-desktop ">
+        <div class="columns is-desktop is-centered">
+            <div class="column is-size-7-mobile is-6-tablet is-5-desktop">
                 <div class="box has-background-grey-lighter">
-                    <div class="container is-flex pb-5 " style="align-items: baseline;justify-content: space-between;">
+                    <div class="container is-flex pb-5" style="align-items: baseline;justify-content: space-between;">
                         <h1 class="title has-text-black is-size-6-mobile">
                             User information 
                         </h1>
-                        <div class="buttons are-normal ">
+                        <div class="buttons are-normal">
                             <a href="/admin/users/editauser/{{user.id}}" class="button is-info action-edit-user" data-id="{{user.id}}" data-fullname="{{user.fullName}}">
                                 <span class="icon is-small">
                                     <i class="far fa-edit"></i>

@@ -27,8 +27,36 @@ function fromDataToEntity({
   });
 }
 
-function fromModelToEntity(model) {
-  return new User(model.toJSON());
+function fromModelToEntity({
+  id,
+  firstName,
+  lastName,
+  documentType,
+  documentNumber,
+  nationality,
+  address,
+  phoneNumber,
+  email,
+  birthdate,
+  createdAt,
+  updatedAt,
+  deletedAt,
+}) {
+  return new User({
+    id: Number(id),
+    firstName,
+    lastName,
+    documentType,
+    documentNumber,
+    nationality,
+    address,
+    phoneNumber,
+    email,
+    birthdate,
+    createdAt,
+    updatedAt,
+    deletedAt,
+  });
 }
 
 module.exports = {

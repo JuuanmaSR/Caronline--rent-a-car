@@ -11,7 +11,7 @@ test('No se puede crear una nueva intancia de un controlador abstracto', () => {
   }
 });
 
-test('Se puede crear una nueva instancia de una clase hereda de AbstractUserController', () => {
+test('Se puede crear una nueva instancia de una clase hereda de AbstractUserController', async () => {
   const ConcreteController = class extends AbstractUserController {};
-  expect(new ConcreteController()).toBeInstanceOf(AbstractUserController);
+  await expect(new ConcreteController()).toBeInstanceOf(AbstractUserController);
 });

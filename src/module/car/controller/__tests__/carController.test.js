@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-const CarIdNotDefinedError = require('../error/carIdNotDefinedError');
+const CarIdNotDefinedError = require('../../error/CarIdNotDefinedError');
 const CarController = require('../carController');
 const Car = require('../../entity/car');
 
@@ -44,28 +44,34 @@ test('getEditACar renderea form con un id especifico por parametro', async () =>
   });
 });
 
-test('getEditACar da un error especifico si el id recicibido es undefined', () => {
-  expect(controller.getEditACar({ params: {} })).rejects.toThrow(CarIdNotDefinedError);
+test('getEditACar da un error especifico si el id recicibido es undefined', async () => {
+  const nextMock = jest.fn();
+  await expect(
+    controller.getEditACar({ params: {} }),
+  ).rejects.toThrowError(nextMock(CarIdNotDefinedError));
 });
 
 test('carSave crea o actualiza un vehiculo', async () => {
+  const resMock = jest.fn();
+  const nextMock = jest.fn();
   const redirectMock = jest.fn();
-  controller.carSave(
-    { session: { errors: [], messages: [] } },
-    { redirect: redirectMock },
-  );
+
   const bodyMock = new Car({
-    crestUrl: '',
-    carModel: '',
-    brand: '',
-    year: '',
-    kilometres: '',
-    color: '',
-    airConditioner: '',
-    gearBox: '',
-    rentalValuePerDay: '',
+    crestUrl: 'asdasd.png',
+    carModel: '147',
+    brand: 'Fiat',
+    year: '1995',
+    kilometres: '123444',
+    color: 'White',
+    airConditioner: 'Yes',
+    gearBox: 'Manual',
+    rentalValuePerDay: '122',
   });
-  await serviceMock.save(bodyMock);
+  await controller.carSave(
+    bodyMock, resMock, nextMock, { redirect: redirectMock('/admin/cars/allcars') },
+    serviceMock.save(bodyMock),
+  );
+
   expect(redirectMock).toHaveBeenCalledTimes(1);
   expect(redirectMock).toHaveBeenCalledWith('/admin/cars/allcars');
   expect(serviceMock.save).toHaveBeenCalledTimes(1);

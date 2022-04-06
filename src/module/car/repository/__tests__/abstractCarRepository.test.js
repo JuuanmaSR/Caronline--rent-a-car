@@ -22,12 +22,12 @@ test('Se puede instanciar un repositorio concreto que herede del repositorio abs
   expect(repositoryInstance).toBeInstanceOf(AbstractCarRepository);
 });
 
-test('Llamar a los metodos base sin implementacion concreta da error', () => {
+test('Llamar a los metodos base sin implementacion concreta da error', async () => {
   const ConcreteRepository = class extends AbstractCarRepository {};
   const repositoryInstance = new ConcreteRepository();
 
-  expect(() => repositoryInstance.save()).rejects.toThrowError(MethodNotImplementedError);
-  expect(() => repositoryInstance.delete()).rejects.toThrowError(MethodNotImplementedError);
-  expect(() => repositoryInstance.getById()).rejects.toThrowError(MethodNotImplementedError);
-  expect(() => repositoryInstance.getAll()).rejects.toThrowError(MethodNotImplementedError);
+  await expect(() => repositoryInstance.save()).rejects.toThrowError(MethodNotImplementedError);
+  await expect(() => repositoryInstance.delete()).rejects.toThrowError(MethodNotImplementedError);
+  await expect(() => repositoryInstance.getById()).rejects.toThrowError(MethodNotImplementedError);
+  await expect(() => repositoryInstance.getAll()).rejects.toThrowError(MethodNotImplementedError);
 });

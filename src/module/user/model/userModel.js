@@ -4,7 +4,7 @@ module.exports = class UserModel extends Model {
   /**
      *
      * @param {import('sequelize').Sequelize} sequelizeIntance
-     * @returns {typeof CarModel}
+     * @returns {Model} UserModel
      */
   static setup(sequelizeIntance) {
     UserModel.init({
@@ -59,11 +59,14 @@ module.exports = class UserModel extends Model {
         type: DataTypes.DATE,
         defaultValue: Sequelize.NOW,
       },
+      deletedAt: {
+        type: DataTypes.DATE,
+      },
     },
     {
       sequelize: sequelizeIntance,
       modelName: 'User',
-      timestamps: false,
+      tableName: 'users',
       underscored: true,
       paranoid: true,
     });

@@ -27,18 +27,21 @@
                 <thead>
                     <tr>
                         <th><abbr title="ID">ID</abbr></th>
+                        <th>Brand and model</th>
                         <th>Year</th>
                         <th>Kilometres</th>
                         <th>Color</th>
                         <th>Air conditioner</th>
                         <th>Gearbox</th>
                         <th>Rental value p/day</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for car in data.cars %}
                     <tr>
                         <th>{{car.id}}</th>
+                        <td>{{car.brand}} - {{car.carModel}}</td>
                         <td>{{car.year}}</td>
                         <td>{{car.kilometres}}</td>
                         <td>{{car.color}}</td>

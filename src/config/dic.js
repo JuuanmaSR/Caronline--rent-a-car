@@ -10,7 +10,10 @@ const multer = require('multer');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const {
-  CarController, CarService, CarRepository, CarModel,
+  CarController,
+  CarService,
+  CarRepository,
+  CarModel,
 } = require('../module/car/module');
 const {
   UserModel,
@@ -18,6 +21,12 @@ const {
   UserService,
   UserController,
 } = require('../module/user/module');
+const {
+  RentController,
+  RentService,
+  RentRepository,
+  RentModel,
+} = require('../module/rent/module');
 
 function configureSequelizeMainDatabase() {
   const sequelize = new Sequelize({
@@ -51,6 +60,10 @@ function configureSession(container) {
   return session(sessionOptions);
 }
 // Models Config
+/**
+ *
+ * @param {DIContainer} container
+ */
 function configureCarModel(container) {
   CarModel.setup(container.get('Sequelize'));
   return CarModel;
@@ -63,6 +76,16 @@ function configureUserModel(container) {
   UserModel.setup(container.get('Sequelize'));
   return UserModel;
 }
+/**
+ *
+ * @param {DIContainer} container
+ */
+function configureRentModel(container) {
+  const model = RentModel.setup(container.get('Sequelize'));
+  model.setupAssociations(CarModel, UserModel);
+  return model;
+}
+// Multer Config
 function configureMulter() {
   const storage = multer.diskStorage({
     destination(req, file, cb) {
@@ -111,10 +134,25 @@ function addUserModulesDefinitions(container) {
     UserModel: factory(configureUserModel),
   });
 }
+
+function addRentModulesDefinitions(container) {
+  container.addDefinitions({
+    RentController: object(RentController).construct(
+      get('CarService'),
+      get('UserService'),
+      get('RentService'),
+    ),
+    RentService: object(RentService).construct(get('RentRepository')),
+    RentRepository: object(RentRepository).construct(get('RentModel'), get('CarModel'), get('UserModel')),
+    RentModel: factory(configureRentModel),
+  });
+}
+
 module.exports = function configureDI() {
   const container = new DIContainer();
   addCommonDefinitions(container);
   addCarModulesDefinitions(container);
   addUserModulesDefinitions(container);
+  addRentModulesDefinitions(container);
   return container;
 };
