@@ -11,11 +11,17 @@ const carController = container.get('CarController');
  */
 const userController = container.get('UserController');
 
+/**
+ * @type {import ('../../src/module/rent/controller/rentController')} rentController
+ */
+const rentController = container.get('RentController');
+
 const upload = container.get('Multer');
 const router = express.Router();
 
 const routeCars = 'cars';
 const routeUsers = 'users';
+const routeRents = 'rents';
 // Session
 router.use(container.get('Session'));
 
@@ -40,4 +46,14 @@ router.get(`/${routeUsers}/addauser`, userController.getAddAUser.bind(userContro
 router.get(`/${routeUsers}/deleteauser/:id`, userController.deleteUser.bind(userController));
 router.get(`/${routeUsers}/editauser/:id`, userController.getEditAUser.bind(userController));
 router.post(`/${routeUsers}/save`, userController.userSave.bind(userController));
+
+// Rents routes
+router.get(`/${routeRents}/finish/:id`, rentController.getFinish.bind(rentController));
+router.get(`/${routeRents}/pay/:id`, rentController.getPay.bind(rentController));
+router.get(`/${routeRents}/details/:id`, rentController.getRentDetails.bind(rentController));
+router.get(`/${routeRents}/allrents`, rentController.getAllRents.bind(rentController));
+router.get(`/${routeRents}/rentacar`, rentController.getAddRent.bind(rentController));
+router.get(`/${routeRents}/deletearent/:id`, rentController.deleteRent.bind(rentController));
+router.get(`/${routeRents}/editarent/:id`, rentController.getEditRent.bind(rentController));
+router.post(`/${routeRents}/save`, rentController.saveRent.bind(rentController));
 module.exports = router;

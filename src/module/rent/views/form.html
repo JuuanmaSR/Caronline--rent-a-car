@@ -1,0 +1,134 @@
+{% extends "views/admin/layout/base.html" %}
+{% block body %}
+{% set rent = data.rent %}
+{% set car = data.car %}
+{% set user = data.user %}
+<div class="container is-fluid pn-5">
+  <div class="columns is-centered is-vcentered">
+    <div class="column is-narrow">
+      <div class="column is-narrow">
+        <h1 class="is-size-1-desktop is-size-3-mobile is-size-2-tablet has-text-centered pb-5 pt-5">
+          {{"Editing rent #" + rent.id if rent.id else "Rent a car"}}
+        </h1>
+      </div>
+        <form action="/admin/rents/save" method="POST" id="rentform" style="max-width: 70vh">
+          <input type="number" name="id" value="{{rent.id}}" hidden>
+            <div class="field">
+              <label class="label">Car</label>
+              <div class="control">
+                <div class="select">
+                  <select name="car_id" form="rentform" required>
+                    <option disabled>Select a car</option>
+                    {% for car in data.cars %}
+                    <option value="{{car.id}}" {{ 'selected' if rent.carId === car.id}}>
+                      ID {{car.id}} | {{car.brand}} | {{car.carModel}} | Color: {{car.color}} | Gearbox: {{car.gearBox}}
+                    </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label  class="label">Customer</label>
+              <div class="control">
+                <div class="select">
+                  <select name="user_id" required form="rentform">
+                    <option disabled>Select a user</option>
+                    {% for user in data.users %}
+                    <option value="{{user.id}}" {{'selected' if rent.userId === user.id}}>
+                      {{user.documentType}} {{user.documentNumber}} | {{user.firstName}} {{user.lastName}}
+                    </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Price p/Day</label>
+              <div class="control has-icons-left ">
+                <input class="input" type="number" value="{{rent.pricePerDay}}" name="price_per_day" id="pricePerDay" autocomplete="off">
+                <span class="icon is-small is-left">
+                  <i class="fas fa-dollar-sign"></i>
+                </span>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Start Date</label>
+              <div class="control">
+                <input class="input" value="{{rent.startDate}}" id="startDate" type="date" name="start_date"   autocomplete="off" required>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Finish Date</label>
+              <div class="control">
+                <input class="input" value="{{rent.finishDate}}" id="finishDate" type="date" name="finish_date"  autocomplete="off" required>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Total Price</label>
+              <div class="control has-icons-left ">
+                <input class="input"  id="totalPrice" type="number"  name="total_price" value="{{ rent.totalPrice}}" readonly autocomplete="off">
+                <span class="icon is-small is-left">
+                  <i class="fas fa-dollar-sign"></i>
+                </span>
+              </div>
+            </div>
+            <div class="field">
+              <p class="control">
+                <button type="button" class="button is-primary" id="calculateTotalPrice">Calculate</button>
+              </p>
+            </div>
+            <div class="field">
+              <label  class="label">Payment method</label>
+              <div class="control">
+                <div class="select">
+                  <select name="payment_method" form="rentform" required>
+                    <option disabled>Select payment method</option>
+                    <option value="Credit card"{{'selected' if rent.paymentMethod === "Credit card"}}>Credit card</option>
+                    <option value="Debit card"{{'selected' if rent.paymentMethod === "Debit card"}}>Debit card</option>
+                    <option value="Bank transfer"{{'selected' if rent.paymentMethod === "Bank transfer"}}>Bank transfer</option>
+                    <option value="Cash"{{'selected' if rent.paymentMethod === "Cash"}}>Cash</option>
+
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+                <label  class="label">Payment Status (no/yes)</label>
+              <div class="control">
+                <div class="select">
+                  <select name="payment_status">
+                    <option disabled>Select payment status</option>
+                    <option value="false" {{'selected' if rent.paymentStatus === false}}>No</option>
+                    <option value="true" {{'selected' if rent.paymentStatus === true}}>Yes</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Status</label>
+                <div class="control">
+                  <div class="select">
+                    <select name="status">
+                      <option disabled>Select status</option>
+                      <option value="0" {{'selected' if rent.status === "0"}}>Pending</option>
+                      <option value="1" {{'selected' if rent.status === "1"}}>Payed</option>
+                      <option value="2" {{'selected' if rent.status === "2"}} {{'hidden' if rent.status === "0"}}>Finish</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="field is-grouped">
+              <p class="control">
+                <button type="submit" class="button is-primary">Submit</button>
+              </p>
+              <p class="control">
+                <button class="button is-link is-light"><a href={{"/admin/rents/details/" + rent.id if rent.id else "/admin/rents/rentacar"}}>Cancel</a></button>
+              </p>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>
+<script src="/js/adminViewJs/rentModule/form.js"></script>
+{% endblock %}

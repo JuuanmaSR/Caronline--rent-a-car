@@ -1,0 +1,106 @@
+{% extends "views/admin/layout/base.html" %}
+{% block body %}
+{% set rent = data.rent %}
+{% set car = data.car %}
+{% set user = data.user %}
+<section class="section">
+    <div class="container">
+        <h1 class="is-size-1-desktop is-size-3-mobile is-size-2-tablet has-text-centered pb-5"> 
+            Rent details # {{rent.id}}
+        </h1>
+        <div class="columns is-desktop is-centered">
+            <div class="column is-size-7-mobile is-6-tablet is-5-desktop">
+                <div class="box has-background-grey-lighter">
+                    <div class="container is-flex pb-5" style="align-items: baseline;justify-content: space-between;">
+                        <h1 class="title has-text-black is-size-6-mobile">
+                            Rent information 
+                        </h1>
+                        {% if rent.status === "0" %}
+                        {% include "../views/partials/buttons-for-pending-status.html" %}
+                        {% endif %}
+                        {% if rent.status === "1" %}
+                        {% include "../views/partials/buttons-for-payed-status.html" %}
+                        {% endif %}
+                        {% if rent.status === "2" %}
+                        {% include "../views/partials/buttons-for-finished-status.html" %}
+                        {% endif %}
+                    </div>
+                    <div class="box table-container">
+                        <table class="table is-fullwidth">
+                            <tbody>
+                                <tr>
+                                    <th>ID</th>
+                                    <td>{{ rent.id }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Car</th>
+                                    <td><a href={{"/admin/cars/details/" + car.id}}>
+                                         {{"#" + car.id + " " + car.brand + " " + "-" + " " + car.carModel }}
+                                        </a> 
+                                        {{"(Deleted)" if car.deletedAt }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>User</th>
+                                    <td><a href={{"/admin/users/details/" + user.id }}>
+                                        {{ user.fullName }} <br> {{ user.documentType + " " + "#" + " " + user.documentNumber }}
+                                    </a>
+                                     {{"(Deleted)" if user.deletedAt}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Price per day</th>
+                                    <td>$ {{ rent.pricePerDay }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Start date</th>
+                                    <td>{{ rent.formattedDates.startDate }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Finish date</th>
+                                    <td>{{ rent.formattedDates.finishDate }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Total price</th>
+                                    <td>$ {{ rent.totalPrice }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Payment method</th>
+                                    <td>{{ rent.paymentMethod }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Payment status</th>
+                                    <td>{% if rent.paymentStatus %}
+                                        <span class="icon has-text-success">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                                        {% else %}
+                                        <span class="icon has-text-danger">
+                                            <i class="fas fa-times"></i>
+                                          </span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Status</th>
+                                    <td>
+                                        {% if rent.status === "0" %}
+                                        <span class="tag is-danger">Pending</span>
+                                        {% endif %}
+                                        {% if rent.status === "1" %}
+                                        <span class="tag is-success">Payed</span>
+                                        {% endif %}
+                                        {% if rent.status === "2" %}
+                                        <span class="tag is-info">Finished</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+    </div>
+</section>
+<script src="/js/adminViewJs/rentModule/allrents.js"></script>
+{% endblock %}

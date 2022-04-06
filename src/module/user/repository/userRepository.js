@@ -3,6 +3,7 @@ const UserNotFoundError = require('../error/UserNotFoundError');
 const UserIdNotDefinedError = require('../error/UserIdNotDefinedError');
 const UserNotDefinedError = require('../error/UserNotDefinedError');
 const { fromModelToEntity } = require('../mapper/userMapper');
+const { RentModel } = require('../../rent/module');
 
 module.exports = class UserRepository extends AbstractUserRepository {
   /**
@@ -55,9 +56,9 @@ module.exports = class UserRepository extends AbstractUserRepository {
     if (id === undefined) {
       throw new UserIdNotDefinedError('On userRepository(getById) the id is undefined');
     }
-    const userModel = await this.userModel.findOne({ where: { id } });
+    const userModel = await this.userModel.findByPk(id, { include: RentModel });
     if (!userModel) {
-      throw new UserNotFoundError(`User with ID: ${id} not found`);
+      throw new UserNotFoundError(`User with ID: ${id} not found (maybe it was deleted)`);
     }
     return fromModelToEntity(userModel);
   }

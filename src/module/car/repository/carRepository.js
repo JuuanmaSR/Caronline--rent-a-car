@@ -3,6 +3,7 @@ const CarNotFoundError = require('../error/CarNotFoundError');
 const CarIdNotDefinedError = require('../error/CarIdNotDefinedError');
 const CarNotDefinedError = require('../error/CarNotDefinedError');
 const { fromModelToEntity } = require('../mapper/carMapper');
+const { RentModel } = require('../../rent/module');
 
 module.exports = class CarRepository extends AbstractCarRepository {
   /**
@@ -50,8 +51,9 @@ module.exports = class CarRepository extends AbstractCarRepository {
     if (id === undefined) {
       throw new CarIdNotDefinedError('On the carRepository(getById) the car id is undefined');
     }
+    const carModel = await this.carModel.findByPk(id, { include: RentModel });
     if (!carModel) {
-      throw new CarNotFoundError(`Vehicle ID: ${id} not found`);
+      throw new CarNotFoundError(`Vehicle ID: ${id} not found (maybe it was deleted)`);
     }
     return fromModelToEntity(carModel);
   }

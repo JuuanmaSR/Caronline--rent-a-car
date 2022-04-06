@@ -1,0 +1,90 @@
+{% extends "views/admin/layout/base.html" %}
+{% block body %}
+{% set rent = data.rent %}
+<section class="section">
+    <div class="columns is-centered">
+        <div class="column is-narrow">
+            <h1 class="is-size-1-desktop is-size-3-mobile is-size-2-tablet has-text-centered pb-5">
+                All rents ({{data.rents.length}})
+            </h1>
+            {% for message in messages %}
+            <div class="notification is-success">
+              <button class="delete"></button>
+              {{message}}
+            </div>
+            {% endfor %}
+            {% for error in errors %}
+            <div class="notification is-danger">
+              <button class="delete"></button>
+              {{error}}
+            </div>
+            {% endfor %}
+            <div class="table-container">
+                <table class="table is-striped is-fullwidth">
+                    <thead>
+                        <tr>
+                            <th><abbr title="ID">ID</abbr></th>
+                            <th>Car ID</th>
+                            <th>User ID</th>
+                            <th>Price p/day</th>
+                            <th>Start date</th>
+                            <th>Finish date</th>
+                            <th>Total price</th>
+                            <th>Payment method</th>
+                            <th>Payment status</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for rent in data.rents %}
+                        <tr>
+                            <th>{{rent.id}}</th>
+                            <td>{{rent.carId}}</td>
+                            <td>{{rent.userId}}</td>
+                            <td>$ {{rent.pricePerDay}}</td>
+                            <td>{{rent.formattedDates.startDate}}</td>
+                            <td>{{rent.formattedDates.finishDate}}</td>
+                            <td>$ {{rent.totalPrice}}</td>
+                            <td>{{rent.paymentMethod}}</td>
+                            <td>{% if rent.paymentStatus %}
+                                <span class="icon has-text-success">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                                {% else %}
+                                <span class="icon has-text-danger">
+                                    <i class="fas fa-times"></i>
+                                  </span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if rent.status === "0" %}
+                                <span class="tag is-danger">Pending</span>
+                                {% endif %}
+                                {% if rent.status === "1" %}
+                                <span class="tag is-success">Payed</span>
+                                {% endif %}
+                                {% if rent.status === "2" %}
+                                <span class="tag is-info">Finished</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="buttons are-small is-centered">
+                                    <a href="/admin/rents/details/{{rent.id}}" class="button is-info" title="Info">
+                                        <span class="icon is-small">
+                                            <i class="fas fa-info-circle"></i>
+                                        </span>
+                                        <p>Info</p>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="/js/adminViewJs/rentModule/allrents.js"></script>
+{% endblock %}
