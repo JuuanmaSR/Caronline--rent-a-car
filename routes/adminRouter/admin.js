@@ -34,9 +34,10 @@ router.get(`/${routeCars}/editacar/:id`, carController.getEditACar.bind(carContr
 router.post(`/${routeCars}/save`, upload.single('crestUrl'), carController.carSave.bind(carController));
 
 // Users routes
-router.get(`/${routeUsers}/allusers`, userController.getAllUsers.bind(userController));
 router.get(`/${routeUsers}/details/:id`, userController.getUserDetails.bind(userController));
+router.get(`/${routeUsers}/allusers`, userController.getAllUsers.bind(userController));
 router.get(`/${routeUsers}/addauser`, userController.getAddAUser.bind(userController));
+router.get(`/${routeUsers}/deleteauser/:id`, userController.deleteUser.bind(userController));
 router.get(`/${routeUsers}/editauser/:id`, userController.getEditAUser.bind(userController));
 router.post(`/${routeUsers}/save`, userController.userSave.bind(userController));
 module.exports = router;
