@@ -37,6 +37,7 @@ build/Release
 data/*.db
 data
 #Ignore file uploads
+uploads
 
 # Dependency directories
 node_modules/
