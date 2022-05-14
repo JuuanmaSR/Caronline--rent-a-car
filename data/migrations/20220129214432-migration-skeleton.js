@@ -7,7 +7,6 @@
 const { CarModel } = require('../../src/module/car/module');
 const { RentModel } = require('../../src/module/rent/module');
 const { UserModel } = require('../../src/module/user/module');
-const configureDependencyInjection = require('../../src/config/dic');
 
 const container = require('../../src/config/dic')();
 
