@@ -11,7 +11,10 @@ module.exports = class Rent {
      * @param {Number} totalPrice Number
      * @param {String} paymentMethod String
      * @param {Boolean} paymentStatus Boolean
-     * @param {Number} status Number
+     * @param {String} status String
+     * @param  {Date} createdAt Date
+     * @param  {Date} updatedAt Date
+     * @param  {Date} deletedAt Date
      */
   constructor({
     id,
@@ -58,7 +61,8 @@ module.exports = class Rent {
         day: 'numeric',
         hour: 'numeric',
         minute: 'numeric',
-      }),
+
+      }, +1),
     );
     return { startDate, finishDate };
   }
@@ -91,6 +95,15 @@ module.exports = class Rent {
       throw new Error("The rent can't be finished owing to non payment");
     }
     this.status = '2';
+    return this;
+  }
+
+  cancel() {
+    if (this.paymentStatus === true) {
+      throw new Error("The rent can't be canceled because is it paid");
+    }
+
+    this.status = '3';
     return this;
   }
 };

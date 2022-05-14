@@ -15,6 +15,7 @@
                         <h1 class="title has-text-black is-size-6-mobile">
                             Rent information 
                         </h1>
+                        {% if rent.deletedAt === null %}
                         {% if rent.status === "0" %}
                         {% include "../views/partials/buttons-for-pending-status.html" %}
                         {% endif %}
@@ -24,6 +25,10 @@
                         {% if rent.status === "2" %}
                         {% include "../views/partials/buttons-for-finished-status.html" %}
                         {% endif %}
+                        {% if rent.status === "3" %}
+                        {% include "../views/partials/buttons-for-finished-status.html" %}
+                        {% endif %}
+                        {% endif%}
                     </div>
                     <div class="box table-container">
                         <table class="table is-fullwidth">
@@ -92,6 +97,9 @@
                                         {% endif %}
                                         {% if rent.status === "2" %}
                                         <span class="tag is-info">Finished</span>
+                                        {% endif %}
+                                        {% if rent.status === "3" %}
+                                        <span class="tag is-warning">Canceled</span>
                                         {% endif %}
                                     </td>
                                 </tr>

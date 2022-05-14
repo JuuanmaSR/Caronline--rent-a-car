@@ -2,7 +2,7 @@
   "name": "caronline--rent-a-car",
   "version": "1.0.0",
   "description": "Aplicacion web para el alquiler de autos",
-  "main": "index.js",
+  "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",
     "schema:migrate": "npx sequelize-cli db:migrate",

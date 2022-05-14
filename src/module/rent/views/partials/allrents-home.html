@@ -1,53 +1,35 @@
-{% extends "views/admin/layout/base.html" %}
-{% block body %}
 {% set rent = data.rent %}
 <section class="section">
     <div class="columns is-centered">
         <div class="column is-narrow">
             <h1 class="is-size-1-desktop is-size-3-mobile is-size-2-tablet has-text-centered pb-5">
-                {{ title if title else "All Rents"}} ({{data.rents.length}})
+                {{ title if title else "Rents"}} ({{data.rents.length}})
             </h1>
-            {% for message in messages %}
-            <div class="notification is-success">
-              <button class="delete"></button>
-              {{message}}
-            </div>
-            {% endfor %}
-            {% for error in errors %}
-            <div class="notification is-danger">
-              <button class="delete"></button>
-              {{error}}
-            </div>
-            {% endfor %}
             <div class="table-container">
-                <table class="table is-striped is-fullwidth">
+                <table class="table is-striped is-fullwidth ">
                     <thead>
                         <tr>
                             <th><abbr title="ID">ID</abbr></th>
-                            <th>Car ID</th>
                             <th>User ID</th>
-                            <th>Price p/day</th>
+                            <th>Car ID</th>
                             <th>Start date</th>
                             <th>Finish date</th>
-                            <th>Total price</th>
-                            <th>Payment method</th>
                             <th>Payment status</th>
                             <th>Status</th>
+                            <th>Total price</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for rent in data.rents %}
-                        <tr class= {{"has-background-danger-light" if rent.deletedAt }}>
+                        <tr>
                             <th>{{rent.id}}</th>
-                            <td>{{rent.carId}}</td>
                             <td>{{rent.userId}}</td>
-                            <td>$ {{rent.pricePerDay}}</td>
+                            <td>{{rent.carId}}</td>
                             <td>{{rent.formattedDates.startDate}}</td>
                             <td>{{rent.formattedDates.finishDate}}</td>
-                            <td>$ {{rent.totalPrice}}</td>
-                            <td>{{rent.paymentMethod}}</td>
-                            <td>{% if rent.paymentStatus %}
+                            <td>
+                                {% if rent.paymentStatus %}
                                 <span class="icon has-text-success">
                                     <i class="fas fa-check"></i>
                                 </span>
@@ -71,6 +53,7 @@
                                 <span class="tag is-warning">Canceled</span>
                                 {% endif %}
                             </td>
+                            <td>$ {{rent.totalPrice}}</td>
                             <td>
                                 <div class="buttons are-small is-centered">
                                     <a href="/admin/rents/details/{{rent.id}}" class="button is-responsive is-info" title="Info">
@@ -89,5 +72,3 @@
         </div>
     </div>
 </section>
-<script src="/js/adminViewJs/rentModule/allrents.js"></script>
-{% endblock %}

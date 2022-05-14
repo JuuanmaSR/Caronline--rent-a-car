@@ -2,10 +2,10 @@ const { Sequelize, Model, DataTypes } = require('sequelize');
 
 module.exports = class RentModel extends Model {
 /**
- * @param {import('sequelize').Sequelize} sequelizeIntance
+ * @param {import('sequelize').Sequelize} sequelizeInstance
  * @returns {Model} RentModel
  */
-  static setup(sequelizeIntance) {
+  static setup(sequelizeInstance) {
     RentModel.init({
       id: {
         type: DataTypes.INTEGER,
@@ -55,7 +55,7 @@ module.exports = class RentModel extends Model {
       },
     },
     {
-      sequelize: sequelizeIntance,
+      sequelize: sequelizeInstance,
       modelName: 'Rent',
       tableName: 'rents',
       underscored: true,

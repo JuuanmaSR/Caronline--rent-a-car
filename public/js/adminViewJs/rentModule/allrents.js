@@ -1,5 +1,6 @@
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-alert */
+
 // Delete Buttons
 document.querySelectorAll('.action-archive-rent').forEach(($actionDelete) => {
   $actionDelete.addEventListener('click', (e) => {
@@ -15,7 +16,8 @@ document.querySelectorAll('.action-archive-rent').forEach(($actionDelete) => {
     }
     if (
       !confirm(
-        `Confirm that you want to archived the Rent #${id} with status: ${status} ? This operation cannot be undone.`,
+        `Confirm that you want to archived the Rent #${id}
+         with status: ${status} ? This operation cannot be undone.`,
       )
     ) {
       e.preventDefault();
@@ -92,7 +94,7 @@ document.querySelectorAll('.action-finish-rent').forEach(($actionEdit) => {
     if (
       !confirm(
         `Confirm that you want to finish the rent # ${id}
-        with status: ${status}? This operation cannot be undone`,
+        with status: ${status}? This operation cannot be undone.`,
       )
     ) {
       e.preventDefault();

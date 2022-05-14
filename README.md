@@ -16,7 +16,7 @@ CRUD / ABM implementado en Node.js para añadir, ver, actualizar y eliminar auto
 
  - Para iniciar el proyecto en modo desarrollo ejecutar `npm run dev`, este comando inicializa la aplicacion mediante Nodemon.
 
- - Ir a la dirección indicada en la consola, por defecto `http://localhost:8080/`.
+ - Ir a la dirección indicada en la consola, por defecto `http://localhost:8080/admin/home/rents`.
 ## Diagrama C4
 <img src= "https://github.com/JuuanmaSR/Caronline--rent-a-car/blob/rents-module/public/images/Caronline-L1.png" title= "Diagrama-C4-level-1">
 <img src= "https://github.com/JuuanmaSR/Caronline--rent-a-car/blob/rents-module/public/images/Caronline-L2.png" title= "Diagrama-C4-level-2">

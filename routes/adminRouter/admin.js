@@ -25,12 +25,6 @@ const routeRents = 'rents';
 // Session
 router.use(container.get('Session'));
 
-// Admin routes
-router.get('/', (req, res) => {
-  res.render('views/admin/home', {
-    username: 'Juan',
-  });
-});
 // Cars routes
 router.get(`/${routeCars}/details/:id`, carController.getCarDetails.bind(carController));
 router.get(`/${routeCars}/allcars`, carController.getAllCars.bind(carController));
@@ -48,12 +42,21 @@ router.get(`/${routeUsers}/editauser/:id`, userController.getEditAUser.bind(user
 router.post(`/${routeUsers}/save`, userController.userSave.bind(userController));
 
 // Rents routes
-router.get(`/${routeRents}/finish/:id`, rentController.getFinish.bind(rentController));
+// --- Rent home page
+router.get(`/home/${routeRents}`, rentController.getHomeRents.bind(rentController));
+
+router.get(`/${routeRents}/finish/:id`, rentController.finishRent.bind(rentController));
+router.get(`/${routeRents}/cancel/:id`, rentController.cancelRent.bind(rentController));
 router.get(`/${routeRents}/pay/:id`, rentController.getPay.bind(rentController));
 router.get(`/${routeRents}/details/:id`, rentController.getRentDetails.bind(rentController));
+router.get(`/${routeRents}/pending-rents/:status`, rentController.getByStatusRent.bind(rentController));
+router.get(`/${routeRents}/finished-rents/:status`, rentController.getByStatusRent.bind(rentController));
+router.get(`/${routeRents}/canceled-rents/:status`, rentController.getByStatusRent.bind(rentController));
+router.get(`/${routeRents}/archived-rents`, rentController.getArchivedRents.bind(rentController));
 router.get(`/${routeRents}/allrents`, rentController.getAllRents.bind(rentController));
 router.get(`/${routeRents}/rentacar`, rentController.getAddRent.bind(rentController));
 router.get(`/${routeRents}/deletearent/:id`, rentController.deleteRent.bind(rentController));
 router.get(`/${routeRents}/editarent/:id`, rentController.getEditRent.bind(rentController));
 router.post(`/${routeRents}/save`, rentController.saveRent.bind(rentController));
+
 module.exports = router;

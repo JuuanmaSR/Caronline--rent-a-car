@@ -1,5 +1,6 @@
 /* eslint-disable no-dupe-keys */
 /* eslint-disable no-unused-vars */
+const { Op } = require('sequelize');
 const AbstractRentRepository = require('./abstractRentRepository');
 const RentIdNotDefinedError = require('../error/RentIdNotDefinedError');
 const RentNotDefinedError = require('../error/RentNotDefinedError');
@@ -7,6 +8,7 @@ const RentNotFoundError = require('../error/RentNotFoundError');
 const { fromModelToEntity } = require('../mapper/rentMapper');
 const { fromModelToEntity: fromModelToEntityCar } = require('../../car/mapper/carMapper');
 const { fromModelToEntity: fromModelToEntityUser } = require('../../user/mapper/userMapper');
+const Rent = require('../entity/Rent');
 
 module.exports = class RentRepository extends AbstractRentRepository {
   /**
@@ -28,7 +30,7 @@ module.exports = class RentRepository extends AbstractRentRepository {
    *  @returns {Promise<import('../entity/Rent')>}
    */
   async save(rent) {
-    if (rent === undefined) {
+    if (!(rent instanceof Rent)) {
       throw new RentNotDefinedError('On rentRepository(save) the rent is undefined');
     }
     let rentModel;
@@ -46,7 +48,7 @@ module.exports = class RentRepository extends AbstractRentRepository {
    *  @returns {Promise<import('../entity/Rent')>}
    */
   async getById(id) {
-    if (id === undefined) {
+    if (!(id)) {
       throw new RentIdNotDefinedError('On rentRepository(getById) the rent ID is undefined');
     }
     const rentModel = await this.rentModel.findByPk(id, {
@@ -54,6 +56,7 @@ module.exports = class RentRepository extends AbstractRentRepository {
         { model: this.carModel, paranoid: false },
         { model: this.userModel, paranoid: false },
       ],
+      paranoid: false,
     });
     if (!rentModel) {
       throw new RentNotFoundError(`On rentRepository(getById) the rent with ID: ${id} not found (maybe it was deleted)`);
@@ -73,17 +76,47 @@ module.exports = class RentRepository extends AbstractRentRepository {
   }
 
   async delete(rent) {
-    if (rent === undefined || !rent) {
+    if (!(rent instanceof Rent)) {
       throw new RentNotDefinedError('On rentRepository(delete) the rent is undefined');
     }
-    if (!rent.id) {
+    if (!(rent.id)) {
       throw new RentIdNotDefinedError('On rentRepository(delete) the rent ID is undefined');
     }
     return Boolean(await this.rentModel.destroy({ where: { id: rent.id } }));
   }
 
   async getAll() {
-    const rents = await this.rentModel.findAll();
+    const rents = await this.rentModel.findAll({ order: [['createdAt', 'DESC']] });
+    return rents.map(fromModelToEntity);
+  }
+
+  async getArchived() {
+    const rents = await this.rentModel.findAll(
+      {
+        include: [
+          { model: this.carModel, paranoid: false },
+          { model: this.userModel, paranoid: false },
+        ],
+        where: { deletedAt: { [Op.not]: null } },
+        order: [['createdAt', 'DESC']],
+        paranoid: false,
+      },
+    );
+    return rents.map(fromModelToEntity);
+  }
+
+  async getByStatus(status) {
+    const rents = await this.rentModel.findAll(
+      {
+        include: [
+          { model: this.carModel, paranoid: false },
+          { model: this.userModel, paranoid: false },
+        ],
+        where: { status },
+        order: [['createdAt', 'DESC']],
+        paranoid: false,
+      },
+    );
     return rents.map(fromModelToEntity);
   }
 };

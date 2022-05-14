@@ -1,7 +1,10 @@
 <nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item" href="/admin/">
-      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+    <a class="navbar-item is-size-3-desktop is-size-3-tablet is-size-4-mobile has-text-grey" href="/admin/home/rents">
+      <span class="icon is-small mr-3 has-text-primary">
+        <i class="fas fa-car"></i>
+      </span>
+      <p><strong>CARONLINE</strong></p>
     </a>
 
     <a role="button" class="navbar-burger" id="burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -13,13 +16,13 @@
   
   <div id="nav-links" class="navbar-menu">
     <div class="navbar-start">
-      <a class="navbar-item  has-text-grey is-size-5" href="/admin/">
+      <a class="navbar-item  has-text-grey is-size-5" href="/admin/home/rents">
         Home
       </a>
     
       <div class="navbar-item has-dropdown  is-hoverable">
-        <a class="navbar-link has-text-grey is-size-5">
-          Rent panel
+        <a class="navbar-link has-text-grey is-size-5 is-arrowless">
+          Rents
         </a>
         <div class="navbar-dropdown">
           <a class="navbar-item" href="/admin/rents/allrents">
@@ -29,16 +32,22 @@
             Register a rent
           </a>
           <hr class="navbar-divider">
-          <a class="navbar-item">
-            Non-rented cars
+          <a class="navbar-item" href="/admin/rents/pending-rents/0">
+            Pending rents
           </a>
-          <a class="navbar-item">
-            Rented cars
+          <a  class="navbar-item" href="/admin/rents/finished-rents/2">
+            Finished-rents
+          </a>
+          <a class="navbar-item" href="/admin/rents/canceled-rents/3">
+            Canceled rents
+          </a>
+          <a class="navbar-item" href="/admin/rents/archived-rents">
+            Archived rents
           </a>
         </div>
       </div>
       <div class="navbar-item has-dropdown  is-hoverable">
-        <a class="navbar-link has-text-grey is-size-5">
+        <a class="navbar-link has-text-grey is-size-5 is-arrowless">
           Customers
         </a>
         <div class="navbar-dropdown">
@@ -52,7 +61,7 @@
       </div>
       
       <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link  has-text-grey is-size-5">
+        <a class="navbar-link  has-text-grey is-size-5 is-arrowless">
           Cars
         </a>
 

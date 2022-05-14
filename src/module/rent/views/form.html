@@ -55,13 +55,13 @@
             <div class="field">
               <label class="label">Start Date</label>
               <div class="control">
-                <input class="input" value="{{rent.startDate}}" id="startDate" type="date" name="start_date"   autocomplete="off" required>
+                <input class="input" value="{{rent.startDate}}" id="startDate" type="datetime-local" name="start_date"   autocomplete="off" required>
               </div>
             </div>
             <div class="field">
               <label class="label">Finish Date</label>
               <div class="control">
-                <input class="input" value="{{rent.finishDate}}" id="finishDate" type="date" name="finish_date"  autocomplete="off" required>
+                <input class="input" value="{{rent.finishDate}}" id="finishDate" type="datetime-local" name="finish_date"  autocomplete="off" required>
               </div>
             </div>
             <div class="field">
@@ -75,7 +75,7 @@
             </div>
             <div class="field">
               <p class="control">
-                <button type="button" class="button is-primary" id="calculateTotalPrice">Calculate</button>
+                <button type="button" class="button is-responsive is-primary" id="calculateTotalPrice">Calculate</button>
               </p>
             </div>
             <div class="field">
@@ -112,7 +112,8 @@
                       <option disabled>Select status</option>
                       <option value="0" {{'selected' if rent.status === "0"}}>Pending</option>
                       <option value="1" {{'selected' if rent.status === "1"}}>Payed</option>
-                      <option value="2" {{'selected' if rent.status === "2"}} {{'hidden' if rent.status === "0"}}>Finish</option>
+                      <option value="2" {{'selected' if rent.status === "2"}} {{'hidden' if rent.status === "0" or rent.id === undefined}}>Finish</option>
+                      <option value="3" {{'selected' if rent.status === "3"}} {{'hidden' if rent.status === "1" or rent.id === undefined}}>Cancel</option>
                     </select>
                   </div>
                 </div>
@@ -120,10 +121,10 @@
             </div>
             <div class="field is-grouped">
               <p class="control">
-                <button type="submit" class="button is-primary">Submit</button>
+                <button type="submit" class="button is-responsive is-primary">Submit</button>
               </p>
               <p class="control">
-                <button class="button is-link is-light"><a href={{"/admin/rents/details/" + rent.id if rent.id else "/admin/rents/rentacar"}}>Cancel</a></button>
+                <button class="button is-responsive is-link is-light"><a href={{"/admin/rents/details/" + rent.id if rent.id else "/admin/rents/rentacar"}}>Cancel</a></button>
               </p>
             </div>
         </form>
