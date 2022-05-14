@@ -13,6 +13,8 @@ module.exports = class User {
      * @param {string}  birthdate String
      * @param {string}  createdAt String
      * @param {string}  updatedAt String
+     * @param {string}  deletedAt String
+
      */
   constructor({
     id,

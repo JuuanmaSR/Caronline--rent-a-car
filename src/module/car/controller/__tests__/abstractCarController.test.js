@@ -4,14 +4,17 @@ const AbstractCarController = require('../abstractCarController');
 const AbstractCarControllerError = require('../error/abstractCarControllerError');
 
 test('No se puede crear una nueva instancia de un AbstractCarController directamente', () => {
+  let controllerInstance;
   try {
-    new AbstractCarController();
+    controllerInstance = new AbstractCarController();
   } catch (error) {
     expect(error).toBeInstanceOf(AbstractCarControllerError);
+  } finally {
+    expect(controllerInstance).toBeUndefined();
   }
 });
 
-test('Se puede crear una nueva instancia de una clase que hereda de AbstractCarController', async () => {
+test('Se puede crear una nueva instancia de una clase que hereda de AbstractCarController', () => {
   const ConcreteController = class extends AbstractCarController {};
-  await expect(new ConcreteController()).toBeInstanceOf(AbstractCarController);
+  expect(new ConcreteController()).toBeInstanceOf(AbstractCarController);
 });

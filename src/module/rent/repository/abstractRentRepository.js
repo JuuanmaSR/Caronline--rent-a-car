@@ -1,10 +1,11 @@
 /* eslint-disable class-methods-use-this */
 const MethodNotImplementedError = require('./error/methodNotImplementedError');
+const AbstractRentRepositoryError = require('./error/abstractRentRepositoryError');
 
 module.exports = class AbstractRentRepository {
   constructor() {
     if (new.target === AbstractRentRepository) {
-      throw new AbstractRentRepository(
+      throw new AbstractRentRepositoryError(
         'No se puede instanciar el repositorio de rentas abstracto.',
       );
     }

@@ -18,21 +18,24 @@ module.exports = class CarService {
    * @param {Car} car
    */
   async save(car) {
-    if (car === undefined) {
+    if (!(car instanceof Car)) {
       throw new CarNotDefinedError('On the carService(save) the car is undefined');
     }
     return this.carRepository.save(car);
   }
 
   async delete(car) {
-    if (!car || !car.id) {
-      throw new CarNotDefinedError('On the carService(delete) the car or ID is undefined ');
+    if (!(car instanceof Car)) {
+      throw new CarNotDefinedError('On the carService(delete) the car is undefined ');
+    }
+    if (!(car.id)) {
+      throw new CarIdNotDefinedError('On the carService(delete) the car ID is undefined');
     }
     return this.carRepository.delete(car);
   }
 
   async getById(id) {
-    if (id === undefined) {
+    if (!(id)) {
       throw new CarIdNotDefinedError('On the carService(getById) the car ID is undefined');
     }
     return this.carRepository.getById(id);

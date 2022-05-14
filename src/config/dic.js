@@ -1,6 +1,8 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-unused-expressions */
 // Configure Dependency Injection container
+require('dotenv').config();
+
 const {
   default: DIContainer, object, get, factory,
 } = require('rsdi');
@@ -81,9 +83,9 @@ function configureUserModel(container) {
  * @param {DIContainer} container
  */
 function configureRentModel(container) {
-  const model = RentModel.setup(container.get('Sequelize'));
-  model.setupAssociations(CarModel, UserModel);
-  return model;
+  RentModel.setup(container.get('Sequelize'));
+  RentModel.setupAssociations(CarModel, UserModel);
+  return RentModel;
 }
 // Multer Config
 function configureMulter() {

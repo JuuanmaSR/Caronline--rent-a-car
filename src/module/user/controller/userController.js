@@ -106,7 +106,7 @@ module.exports = class UserController extends AbstractUserController {
   async getUserDetails(req, res, next) {
     try {
       const { id } = req.params;
-      if (id === undefined) {
+      if (!(id)) {
         throw new UserIdNotDefinedError('On the userController(getUserDetails) the user ID is undefined');
       }
       const user = await this.userService.getById(id);

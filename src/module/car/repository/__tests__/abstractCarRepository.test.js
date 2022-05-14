@@ -4,7 +4,7 @@ const AbstractCarRepository = require('../abstractCarRepository');
 const AbstractErrorCarRepository = require('../error/abstractCarRepositoryError');
 const MethodNotImplementedError = require('../error/methodNotImplementedError');
 
-test('No se puede intanciar un repositorio abstracto', () => {
+test('No se puede instanciar un repositorio abstracto', () => {
   let repositoryInstance;
   try {
     repositoryInstance = new AbstractCarRepository();

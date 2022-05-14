@@ -1,8 +1,7 @@
 /* eslint-disable camelcase */
 const Rent = require('../entity/Rent');
 /**
- *
- * @param {Object} fromDataToEntity
+ * @params Form Data
  * @returns {import('../entity/Rent')} Rent
  */
 function fromDataToEntity({
@@ -16,9 +15,12 @@ function fromDataToEntity({
   payment_method: paymentMethod,
   payment_status: paymentStatus,
   status,
+  createdAt,
+  updatedAt,
+  deletedAt,
 }) {
   return new Rent({
-    id,
+    id: Number(id),
     carId,
     userId,
     pricePerDay,
@@ -28,13 +30,16 @@ function fromDataToEntity({
     paymentMethod,
     paymentStatus,
     status,
+    createdAt,
+    updatedAt,
+    deletedAt,
 
   });
 }
 /**
  *
  * @param {import('../model/rentModel')} model
- * @returns {import('../entity/Rent')}
+ * @returns {import('../entity/Rent')} Rent
  */
 function fromModelToEntity({
   id,

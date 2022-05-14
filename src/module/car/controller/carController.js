@@ -4,6 +4,7 @@ const AbstractCarController = require('./abstractCarController');
 const CarIdNotDefinedError = require('../error/CarIdNotDefinedError');
 const CarNotDefinedError = require('../error/CarNotDefinedError');
 const CarNotFoundError = require('../error/CarNotFoundError');
+const Car = require('../entity/car');
 
 module.exports = class CarController extends AbstractCarController {
   /**
@@ -35,11 +36,11 @@ module.exports = class CarController extends AbstractCarController {
   async carDelete(req, res, next) {
     try {
       const { id } = req.params;
-      if (id === undefined) {
+      if (!(id)) {
         throw new CarIdNotDefinedError('On carController(delete) the car ID is undefined');
       }
       const car = await this.carService.getById(id);
-      if (car === undefined) {
+      if (!(car)) {
         throw new CarNotFoundError('On carController(delete) the car is not found');
       }
       await this.carService.delete(car);
@@ -53,7 +54,7 @@ module.exports = class CarController extends AbstractCarController {
   async carSave(req, res, next) {
     try {
       const car = fromDataToEntity(req.body);
-      if (car === undefined) {
+      if (!(car instanceof Car)) {
         throw new CarNotDefinedError('On carController(save) the car is undefined');
       }
       if (req.file) {
@@ -61,7 +62,7 @@ module.exports = class CarController extends AbstractCarController {
         car.crestUrl = path;
       }
       const savedCar = await this.carService.save(car);
-      if (savedCar === undefined) {
+      if (!(savedCar)) {
         throw new CarNotDefinedError('On carController(save) the car is undefined');
       }
       if (car.id) {
@@ -91,11 +92,11 @@ module.exports = class CarController extends AbstractCarController {
 
   async getEditACar(req, res, next) {
     const { id } = req.params;
-    if (id === undefined) {
+    if (!(id)) {
       throw new CarIdNotDefinedError('On carController(getEditACar) the car ID is undefined');
     }
     const car = await this.carService.getById(id);
-    if (car === undefined) {
+    if (!(car)) {
       throw new CarNotFoundError('On carController(getEditACar) the car is not found');
     }
     try {
@@ -115,11 +116,11 @@ module.exports = class CarController extends AbstractCarController {
   async getCarDetails(req, res, next) {
     try {
       const { id } = req.params;
-      if (id === undefined) {
+      if (!(id)) {
         throw new CarIdNotDefinedError('On carController(getCarDetails) the car ID is undefined');
       }
       const car = await this.carService.getById(id);
-      if (car === undefined) {
+      if (!(car)) {
         throw new CarNotFoundError('On carController(getCarDetails) the car not found');
       }
       res.render('car/views/detailsCar', {

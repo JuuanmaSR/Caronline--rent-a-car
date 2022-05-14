@@ -4,6 +4,7 @@ const UserIdNotDefinedError = require('../error/UserIdNotDefinedError');
 const UserNotDefinedError = require('../error/UserNotDefinedError');
 const { fromModelToEntity } = require('../mapper/userMapper');
 const { RentModel } = require('../../rent/module');
+const User = require('../entity/User');
 
 module.exports = class UserRepository extends AbstractUserRepository {
   /**
@@ -21,7 +22,7 @@ module.exports = class UserRepository extends AbstractUserRepository {
    * @returns {Promise<import('../entity/User')>}
    */
   async save(user) {
-    if (user === undefined) {
+    if (!(user instanceof User)) {
       throw new UserNotDefinedError('On userRepository(save) the user is undefined');
     }
     let userModel;
@@ -29,7 +30,7 @@ module.exports = class UserRepository extends AbstractUserRepository {
     const buildOptions = { isNewRecord: !user.id };
     userModel = this.userModel.build(user, buildOptions);
     userModel = await userModel.save();
-    if (userModel === undefined) {
+    if (!(userModel)) {
       throw new UserNotDefinedError('On userRepository(save) the user is undefined');
     }
     return fromModelToEntity(userModel);
@@ -41,7 +42,10 @@ module.exports = class UserRepository extends AbstractUserRepository {
   */
 
   async delete(user) {
-    if (!user || !user.id) {
+    if (!(user instanceof User)) {
+      throw new UserNotDefinedError('On userRepository(delete) the user is undefined');
+    }
+    if (!(user.id)) {
       throw new UserIdNotDefinedError('On userRepository(delete) the car or ID is undefined');
     }
 
@@ -53,7 +57,7 @@ module.exports = class UserRepository extends AbstractUserRepository {
    * @param {Number} id
    */
   async getById(id) {
-    if (id === undefined) {
+    if (!(id)) {
       throw new UserIdNotDefinedError('On userRepository(getById) the id is undefined');
     }
     const userModel = await this.userModel.findByPk(id, { include: RentModel });
