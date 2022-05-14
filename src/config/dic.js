@@ -40,7 +40,7 @@ function configureSequelizeMainDatabase() {
 function configureSessionSequelizeDatabase() {
   const sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: process.env.SESSION_DB_PATH,
+    storage: process.env.DB_PATH,
   });
   return sequelize;
 }

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/app.js",
     "schema:migrate": "npx sequelize-cli db:migrate",
-    "sync:session:db": "node src/cli/init.db.js",
+    "schema:migrate:undo": "npx sequelize-cli db:migrate:undo",
     "dev": "nodemon  src/app.js",
     "test": "jest --coverage",
     "test:dev": "jest --watch"
