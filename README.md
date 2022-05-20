@@ -10,7 +10,7 @@ CRUD / ABM implementado en Node.js para añadir, ver, actualizar y eliminar auto
 - [eslint](https://www.npmjs.com/package/eslint) y [prettier](https://www.npmjs.com/package/prettier) en conjunto para analizar potenciales errores y darle formato al código.
 
 ## Como instalar y ejecutar este proyecto
- - El proyecto se instala con `npm init`
+ - El proyecto se instala con `npm install`
 
  - Crear un archivo `.env` en la raíz del proyecto, guiandose por el archivo `.env.dist` en la misma ubicación.
 
