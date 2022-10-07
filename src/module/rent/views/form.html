@@ -12,7 +12,9 @@
         </h1>
       </div>
         <form action="/admin/rents/save" method="POST" id="rentform" style="max-width: 70vh">
+          {% if rent %}
           <input type="number" name="id" value="{{rent.id}}" hidden>
+          {% endif %}
             <div class="field">
               <label class="label">Car</label>
               <div class="control">

@@ -8,7 +8,9 @@
         {{"Editing car with ID: " + car.id if car.id else "Add a car"}}
       </h1>
       <form action="/admin/cars/save" method="POST" enctype="multipart/form-data" id="carform">
+        {% if car %}
         <input type="number" name="id" value="{{car.id}}" hidden>
+        {% endif %}
         <div id="file-js-example" class="file has-name is-fullwidth mt-4">
           <label class="file-label">
             <input class="file-input" type="file" name="crestUrl" value="" >

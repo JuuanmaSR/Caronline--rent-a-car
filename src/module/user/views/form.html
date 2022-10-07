@@ -8,7 +8,9 @@
         {{"Editing user with ID: " + user.id if user.id else "Register a customer"}}
       </h1>
       <form action="/admin/users/save" method="POST" id="userform" style="max-width: 70vh;">
+        {% if user %}
         <input type="number" name="id" value="{{user.id}}" hidden>
+        {% endif %}
           <div class="field ">
               <label class="label">Name(s)</label>
               <div class="control">
